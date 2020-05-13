@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Tabs, Tab, Content } from "./TabStyle";
 import "../css/search.css";
 import Datepicker from "./Datepicker/Datepicker";
-
+import Accordion from "./Accordion";
 import * as moment from "moment";
 
 export default function Search() {
@@ -133,11 +133,13 @@ export default function Search() {
               <button onClick={sortByWarehouse}>Sort by warehouse</button>
               <button onClick={sortByDate}>Sort by date</button>
               <div>
-                <Datepicker
-                  value={searchDates}
-                  onChange={handleSearchDates}
-                  ref={myref}
-                />
+                <Accordion title="Search by date">
+                  <Datepicker
+                    value={searchDates}
+                    onChange={handleSearchDates}
+                    ref={myref}
+                  />
+                </Accordion>
               </div>
 
               <tr>

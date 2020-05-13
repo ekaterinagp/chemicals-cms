@@ -76,14 +76,14 @@ const Datepicker = forwardRef((props, ref) => {
         onDateHover,
       }}
     >
-      <div>
+      {/* <div>
         <strong>Start date: </strong>
         {state.startDate && state.startDate.toLocaleString()}
       </div>
       <div>
         <strong>End date: </strong>
         {state.endDate && state.endDate.toLocaleString()}
-      </div>
+      </div> */}
 
       <NavButton onClick={goToPreviousMonths}>Previous</NavButton>
       <NavButton onClick={goToNextMonths}>Next</NavButton>
