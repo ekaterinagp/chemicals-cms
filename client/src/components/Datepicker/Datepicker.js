@@ -13,13 +13,24 @@ import Month from "./Month";
 import NavButton from "./NavButton";
 import DatepickerContext from "./context/datepickerContext";
 
-function Datepicker(props) {
+const Datepicker = forwardRef((props, ref) => {
   const [state, setState] = useState({
     startDate: null,
     endDate: null,
     focusedInput: START_DATE,
   });
   console.log({ props });
+
+  const cleanValue = () => {
+    setState({ startDate: null, endDate: null, focusedInput: START_DATE });
+  };
+
+  useImperativeHandle(ref, () => {
+    return {
+      cleanValue: cleanValue,
+    };
+  });
+
   const {
     firstDayOfWeek,
     activeMonths,
@@ -73,6 +84,7 @@ function Datepicker(props) {
         <strong>End date: </strong>
         {state.endDate && state.endDate.toLocaleString()}
       </div>
+
       <NavButton onClick={goToPreviousMonths}>Previous</NavButton>
       <NavButton onClick={goToNextMonths}>Next</NavButton>
       <div
@@ -94,5 +106,5 @@ function Datepicker(props) {
       </div>
     </DatepickerContext.Provider>
   );
-}
+});
 export default Datepicker;

@@ -15,7 +15,7 @@ export default function Search() {
     }
   };
 
-  const myref = useRef();
+  const myref = useRef(null);
 
   const [site1DataTotal, setSite1DataTotal] = useState({
     A: 25,
@@ -80,15 +80,7 @@ export default function Search() {
       { chemical: "A", action: "dispatched", date: "05-05-2020", warehouse: 3 },
       { chemical: "C", action: "delivered", date: "13-05-2020", warehouse: 1 },
     ]);
-    console.log(myref);
-    // if (myref.current) {
-    console.log(myref.current);
-    myref.setState({
-      startDate: null,
-      endDate: null,
-      // focusedInput: START_DATE,
-    });
-    // }
+    myref.current.cleanValue();
   };
   useEffect(() => {
     console.log(searchDates);
@@ -112,6 +104,8 @@ export default function Search() {
       setSite1DetailedData(filteredDates);
     }
   }, [searchDates]);
+
+  //
 
   return (
     <div>
