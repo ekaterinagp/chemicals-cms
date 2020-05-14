@@ -1,43 +1,38 @@
-const {
-    Model
-} = require("objection");
+const { Model } = require("objection");
+
+// const Site = require("./Site");
+const ChemicalStock = require("./ChemicalStock");
+const JobItem = require("./JobItem");
 
 class Warehouse extends Model {
-    static get tableName() {
-        return "tWarehouse";
-    }
-    static get idColumn() {
-        return "nWarehouseID";
-    }
+  static get tableName() {
+    return "warehouse";
+  }
+  // static get idColumn() {
+  //     return "nWarehouseID";
+  // }
 
-    static get relationMappings() {
-        return {
-            site: {
-                relation: Model.HasOneRelation,
-                modelClass: `${__dirname}/tSite.js`,
-                join: {
-                    from: 'tWarehouse.nSiteID',
-                    to: 'tSite.nSiteID',
-                },
-            },
-            user: {
-                relation: Model.HasManyRelation,
-                modelClass: `${__dirname}/tUser.js`,
-                join: {
-                    from: 'tWarehouse.nWarehouseID',
-                    to: 'tUser.nWarehouseID',
-                },
-            },
-            shipmentItem: {
-                relation: Model.HasManyRelation,
-                modelClass: `${__dirname}/ShipmentItem.js`,
-                join: {
-                    from: 'tWarehouse.nWarehouseID',
-                    to: 'tShipmentItem.nWarehouseID',
-                },
-            },
-        };
-    }
+  static get relationMappings() {
+    return {
+      chemicalStock: {
+        relation: Model.HasManyRelation,
+        modelClass: ChemicalStock,
+        join: {
+          from: "warehouse.id",
+          to: "chemicalStock.warehouse_id",
+        },
+      },
+
+      JobItem: {
+        relation: Model.HasManyRelation,
+        modelClass: JobItem,
+        join: {
+          from: "warehouse.id",
+          to: "jobItem.warehouse_id",
+        },
+      },
+    };
+  }
 }
 
 module.exports = Warehouse;
