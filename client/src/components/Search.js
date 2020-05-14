@@ -15,7 +15,7 @@ export default function Search() {
     }
   };
 
-  const myref = useRef(null);
+  const ref = useRef(null);
 
   const [site1DataTotal, setSite1DataTotal] = useState({
     A: 25,
@@ -25,25 +25,73 @@ export default function Search() {
   });
 
   const [site1DetailedData, setSite1DetailedData] = useState([
-    { chemical: "A", action: "delivered", date: "12-05-2020", warehouse: 1 },
-    { chemical: "C", action: "dispatched", date: "04-05-2020", warehouse: 1 },
-    { chemical: "B", action: "delivered", date: "07-05-2020", warehouse: 5 },
-    { chemical: "B", action: "delivered", date: "08-05-2020", warehouse: 2 },
-    { chemical: "A", action: "dispatched", date: "05-05-2020", warehouse: 3 },
-    { chemical: "C", action: "delivered", date: "13-05-2020", warehouse: 1 },
+    {
+      chemical: "A",
+      action: "delivered",
+      date: "12-05-2020",
+      warehouse: 1,
+      ticket: "12345678",
+    },
+    {
+      chemical: "C",
+      action: "dispatched",
+      date: "04-05-2020",
+      warehouse: 1,
+      ticket: "123422678",
+    },
+    {
+      chemical: "B",
+      action: "delivered",
+      date: "07-05-2020",
+      warehouse: 5,
+      ticket: "12345228",
+    },
+    {
+      chemical: "B",
+      action: "delivered",
+      date: "08-05-2020",
+      warehouse: 2,
+      ticket: "12445678",
+    },
+    {
+      chemical: "A",
+      action: "dispatched",
+      date: "05-05-2020",
+      warehouse: 3,
+      ticket: "21345678",
+    },
+    {
+      chemical: "C",
+      action: "delivered",
+      date: "13-05-2020",
+      warehouse: 1,
+      ticket: "11345678",
+    },
   ]);
   // console.log(site1DataTotal);
 
   let detailedData = site1DetailedData.map((data, i) => {
     return (
-      <tr key={i}>
-        <td> {data.chemical}</td>
-        <td> {data.action}</td>
-        <td> {data.date}</td>
-        <td> {data.warehouse}</td>
-      </tr>
+      <div className="table-rows" key={i}>
+        <p className="tabel-item"> {data.chemical}</p>
+        <p className="tabel-item"> {data.action}</p>
+        <p className="tabel-item"> {data.date}</p>
+        <p className="tabel-item"> {data.warehouse}</p>
+        <p className="tabel-item"> {data.ticket}</p>
+      </div>
     );
   });
+
+  const renderTableHeader = (data) => {
+    let header = Object.keys(data[0]);
+    return header.map((key, index) => {
+      return (
+        <p key={index} className="tabel-header">
+          {key.toUpperCase()}
+        </p>
+      );
+    });
+  };
 
   const sortByWarehouse = () => {
     // console.log(site1DetailedData[0].date);
@@ -80,7 +128,7 @@ export default function Search() {
       { chemical: "A", action: "dispatched", date: "05-05-2020", warehouse: 3 },
       { chemical: "C", action: "delivered", date: "13-05-2020", warehouse: 1 },
     ]);
-    myref.current.cleanValue();
+    ref.current.cleanValue();
   };
   useEffect(() => {
     console.log(searchDates);
@@ -129,27 +177,23 @@ export default function Search() {
               A: {site1DataTotal.A} B: {site1DataTotal.B} C: {site1DataTotal.C}{" "}
               Alert: {site1DataTotal.alert}{" "}
             </p>
-            <tabel>
-              <button onClick={sortByWarehouse}>Sort by warehouse</button>
-              <button onClick={sortByDate}>Sort by date</button>
-              <div>
-                <Accordion title="Search by date">
-                  <Datepicker
-                    value={searchDates}
-                    onChange={handleSearchDates}
-                    ref={myref}
-                  />
-                </Accordion>
-              </div>
 
-              <tr>
-                <th>Chemical</th>
-                <th>Action</th>
-                <th>Date</th>
-                <th>Warehouse #</th>
-              </tr>
+            <button onClick={sortByWarehouse}>Sort by warehouse</button>
+            <button onClick={sortByDate}>Sort by date</button>
+            <div>
+              <Accordion title="Search by date">
+                <Datepicker
+                  value={searchDates}
+                  onChange={handleSearchDates}
+                  ref={ref}
+                />
+              </Accordion>
+            </div>
+
+            <div>
+              {renderTableHeader(site1DetailedData)}
               {detailedData}
-            </tabel>
+            </div>
           </div>
         </Content>
         <Content active={active === 1}>
