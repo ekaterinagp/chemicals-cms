@@ -180,6 +180,7 @@ export default function Search() {
 
             <button onClick={sortByWarehouse}>Sort by warehouse</button>
             <button onClick={sortByDate}>Sort by date</button>
+
             <div>
               <Accordion title="Search by date">
                 <Datepicker
