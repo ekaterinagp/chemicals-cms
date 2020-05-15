@@ -24,9 +24,9 @@ const ticket = new Ticket({'C':2, 'B':5})
        { warehouse: 14, chemical: 'B' } ] 
     )
 
-console.log(warehouse2.checkIfSpaceForChemicals(job))
-warehouse2.checkIfSpaceForChemicals(job)
-// console.log(ticket.status)
+// console.log(warehouse2.checkIfSpaceForChemicals(job))
+// warehouse2.checkIfSpaceForChemicals(job)
+console.log(site1)
 // console.log(site1.getRemainingCapacityOfSite())
 
 // console.log(site1.getWarehousesToStoreChemicals(ticket))

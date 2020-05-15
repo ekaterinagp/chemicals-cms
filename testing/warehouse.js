@@ -28,29 +28,42 @@ class Warehouse {
     }
  
     checkIfSpaceForChemicals(job){
-        let space = false
-        // console.log(job.placementArray)
-        const chemicalsForWarehouse = job.placementArray.filter((chemicalPlacement) => {
-           if(chemicalPlacement.warehouse === this.id){
-            let warehouseId = chemicalPlacement.warehouse
-            let chemical = chemicalPlacement.chemical
-               return {warehouseId, chemical}
-           }
-        })
-        if(this.getChemicalsinStorage().remainingStorage >= chemicalsForWarehouse.length){
-            space = true
-        }
-        const isSpace = chemicalsForWarehouse.map(x => {
-            if(space && this.getChemicalsinStorage().chemicalsAllowed.includes(x.chemical)){
-                return true
+        // console.log('remaining:', this.getChemicalsinStorage().remainingStorage, 'capacity: ', this.capacity)
+        const chemicalsForWarehouse= job.placementArray.filter(chemicalPlacement => chemicalPlacement.warehouse === this.id)
+        let isSpace = chemicalsForWarehouse.map(chemicalPlacement => {
+            if(job.type ==='outgoing'){
+                if(this.capacity >= chemicalPlacement.amount 
+                    && this.getChemicalsinStorage().chemicalsAllowed.indexOf(chemicalPlacement.chemical)!== -1){
+                        return true
+                    }
+                    return false
+                    
+                }else if(job.tyoe ==='incoming'){
+                    if(this.getChemicalsinStorage().remainingStorage >= chemicalPlacement.amount 
+                    && this.getChemicalsinStorage().chemicalsAllowed.indexOf(chemicalPlacement.chemical)!== -1){
+                        return true
+                    }
+                    return false
+                    
+                }
+                
+            })
+            if(!isSpace.includes(false)){
+                if(job.type ==='outgoing'){
+                    chemicalsForWarehouse.map(chemical => {
+                        console.log(chemical.chemical)
+                        this.chemicalInventory[chemical.chemical] = this.chemicalInventory[chemical.chemical] - chemical.amount
+                        if(this.chemicalInventory[chemical.chemical] === 0){
+                            delete this.chemicalInventory[chemical.chemical]
+                        }
+                        // console.log('bla',this.chemicalInventory)
+                })
+            }else{
+                console.log('incoming')
             }
-            else {
-                return false}
-        })
+        }
+        return
         
-        return isSpace
-
-        // must know what adjacent warehouses carry in order to tell if it can store said chemical
     }
 
 }

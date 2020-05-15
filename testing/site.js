@@ -39,12 +39,14 @@ class Site {
         console.log(InitialWarehouseState)
         if(ticket.type === 'incoming'){
 
+            console.log('incoming')
             if(this.getRemainingCapacityOfSite() >= ticket.totalAmount){
                 // console.log(this.getWarehousesToStoreChemicals(ticket))
                 const placementArray = this.getWarehousesToStoreChemicals(ticket)
                 if(placementArray){
+                    
                     ticket.status = 'Approved'
-                    const job = new Job('inProcess', placementArray)
+                    const job = new Job('inProcess', ticket.type, placementArray)
                     return job
                 }
             }else{
@@ -55,7 +57,7 @@ class Site {
             const placementArray = this.dispatchChemicals(ticket)
             if(placementArray){
                 ticket.status = 'Approved'
-                const job = new Job('inProcess', placementArray)
+                const job = new Job('inProcess', ticket.type, placementArray)
                 return job
             }else{
                 ticket.status = 'Denied'
@@ -119,7 +121,14 @@ class Site {
             })
             if(warehouseToStore){
                 const warehouseId = warehouseToStore.id
-                aWarehousesToStore.push({'warehouse':warehouseId, 'chemical':chemical})
+                let existingInArray = aWarehousesToStore.filter(placement => placement.warehouse == warehouseId)
+                if(existingInArray.length){
+                    // console.log(existingInArray)
+                    let index = aWarehousesToStore.findIndex(placement=> placement.warehouse === warehouseId && placement.chemical === chemical)
+                    aWarehousesToStore[index].amount++
+                }else{
+                    aWarehousesToStore.push({'warehouse': warehouseId, 'chemical':chemical, 'amount': 1})                  
+                }
             }
         }
        return aWarehousesToStore
@@ -165,7 +174,15 @@ class Site {
                 })            
                     if(warehouseToRemoveFrom){
                         const warehouseId = warehouseToRemoveFrom.id
-                        aWarehousesToRemoveFrom.push(warehouseId, chemical)                  
+                        let existingInArray = aWarehousesToRemoveFrom.filter(placement => placement.warehouse == warehouseId)
+                        if(existingInArray.length){
+                            // console.log(existingInArray)
+                            let index = aWarehousesToRemoveFrom.findIndex(placement=> placement.warehouse === warehouseId)
+                            aWarehousesToRemoveFrom[index].amount++
+                        }else{
+                            aWarehousesToRemoveFrom.push({'warehouse': warehouseId, 'chemical':chemical, 'amount': 1})                  
+                        }
+                        
                     }
                 }
         })   

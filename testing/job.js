@@ -1,6 +1,7 @@
 class Job {
-constructor(status, placementArray){
+constructor(status, type, placementArray){
     this.status = status
+    this.type = type
     this.placementArray = placementArray
 }
 
