@@ -1,34 +1,20 @@
 const { Model } = require("objection");
 
-// const Site = require("./Site");
-const ChemicalStock = require("./ChemicalStock");
-const JobItem = require("./JobItem");
+const WarehouseItem = require("./WarehouseItem");
 
 class Warehouse extends Model {
   static get tableName() {
     return "warehouse";
   }
-  // static get idColumn() {
-  //     return "nWarehouseID";
-  // }
 
   static get relationMappings() {
     return {
-      chemicalStock: {
+      warehouseitem: {
         relation: Model.HasManyRelation,
-        modelClass: ChemicalStock,
+        modelClass: WarehouseItem,
         join: {
           from: "warehouse.id",
-          to: "chemicalStock.warehouse_id",
-        },
-      },
-
-      JobItem: {
-        relation: Model.HasManyRelation,
-        modelClass: JobItem,
-        join: {
-          from: "warehouse.id",
-          to: "jobItem.warehouse_id",
+          to: "warehouseitem.warehouse_id",
         },
       },
     };

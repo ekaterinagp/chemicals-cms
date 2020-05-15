@@ -1,6 +1,6 @@
 const { Model } = require("objection");
 
-const JobItem = require("./JobItem");
+const Warehouse = require("./Warehouse");
 
 class Job extends Model {
   static get tableName() {
@@ -9,12 +9,12 @@ class Job extends Model {
 
   static get relationMappings() {
     return {
-      JobItem: {
+      warehouse: {
         relation: Model.HasManyRelation,
-        modelClass: JobItem,
+        modelClass: Warehouse,
         join: {
-          from: "job.id",
-          to: "jobItem.job_id",
+          from: "job.warehouse_id",
+          to: "warehouse.id",
         },
       },
     };
