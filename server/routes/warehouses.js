@@ -18,19 +18,22 @@ router.get("/warehouses", async (req, res) => {
 });
 
 router.post("/processJob", async (req, res) => {
-  const { job } = req.body;
+  const job = req.body;
+  console.log(req.body.placementArray);
   let siteID;
-  let newJob;
+
   let newJobItem;
   let udpatedWarehouseStock;
   // console.log('outgoing', job)
+  //rewrite as separate function? or ternary inside the insert
   if (job.placementArray[0].Warehouse <= 5) {
     siteID = 1;
   } else {
     siteID = 2;
   }
   try {
-    newJob = await Job.query().insert({
+    console.log("we are in try");
+    let newJob = await Job.query().insert({
       type: "O",
       site_id: siteID,
     });
@@ -78,8 +81,8 @@ router.post("/processJob", async (req, res) => {
     return res.send({ response: "sucess" });
   } catch (err) {
     if (err) {
-      console.log(error);
-      return res.send({ error: "could not update db" });
+      console.log(err);
+      return res.send({ err: "could not update db" });
     }
   }
 });

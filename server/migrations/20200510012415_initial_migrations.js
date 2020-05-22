@@ -7,18 +7,8 @@ exports.up = function (knex) {
     })
     .createTable("job", (table) => {
       table.bigIncrements("id").primary().unsigned().notNullable();
-      table.string("chemical1").notNullable();
-      table.integer("amount_ch_1").notNullable();
-      table.string("chemical2");
-      table.integer("amount_ch_2");
       table.string("type", 1).notNullable();
       table.integer("site_id").unsigned().notNullable();
-      table.integer("warehouse_id").unsigned().notNullable();
-      table
-        .foreign("warehouse_id")
-        .references("warehouse.id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
       table.timestamp("date").notNullable().defaultTo(knex.fn.now());
     })
     .createTable("jobItem", (table) => {
@@ -68,10 +58,10 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("warehouse")
-    .dropTableIfExists("warehouseitem")
-    .dropTableIfExists("job")
-    .dropTableIfExists("jobItem")
     .dropTableIfExists("audit")
-    .dropTableIfExists("user");
+    .dropTableIfExists("user")
+    .dropTableIfExists("warehouseItem")
+    .dropTableIfExists("jobItem")
+    .dropTableIfExists("job")
+    .dropTableIfExists("warehouse");
 };

@@ -8,8 +8,9 @@ const Audit = require("../models/Audit");
 
 router.post("/processJob", async (req, res) => {
   const { job } = req.body;
+  console.log(req.body);
   let siteID;
-  let newJob;
+
   let jobType;
   if (job.type === "outgoing") {
     jobType = "O";
@@ -22,7 +23,7 @@ router.post("/processJob", async (req, res) => {
     siteID = 2;
   }
   try {
-    newJob = await Job.query().insert({
+    let newJob = await Job.query().insert({
       type: jobType,
       site_id: siteID,
     });
@@ -44,6 +45,13 @@ router.post("/processJob", async (req, res) => {
         await Warehouse.query()
           .decrement("current_stock", item.amount)
           .where("id", item.warehouse);
+        await Audit.query().insert({
+          type: jobType,
+          chemical: item.chemical,
+          warehouse_id: item.warehouse,
+          site_id: siteID,
+          amount: item.amount,
+        });
       } else {
         let thereIsChemical = await WarehouseItem.query()
           .select("id")
@@ -60,11 +68,13 @@ router.post("/processJob", async (req, res) => {
             chemical: item.chemical,
             amount: item.amount,
           });
+          console.log("we are in warehouseitem", WarehouseItem.amount);
         }
         await Warehouse.query()
           .increment("current_stock", item.amount)
           .where("id", item.warehouse);
       }
+      console.log("we are in audit");
       await Audit.query().insert({
         type: jobType,
         chemical: item.chemical,
@@ -72,6 +82,7 @@ router.post("/processJob", async (req, res) => {
         site_id: siteID,
         amount: item.amount,
       });
+      console.log(jobType);
     });
     return res.send({ response: "success" });
   } catch (err) {

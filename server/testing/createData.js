@@ -22,7 +22,7 @@ let aWarehouses1 = [];
 const fetchWarehouses = async () => {
   const response = await axios("http://localhost/warehouses");
   const warehouses = await response.data;
-  // console.log(warehouses)
+  console.log({ warehouses });
   warehouses.forEach((warehouse) => {
     if (warehouse.id <= 5) {
       aWarehouses.push(new Warehouse(warehouse.id, warehouse.capacity));
@@ -52,6 +52,7 @@ const assignWarehouses = async () => {
 const fetchWarehouseStock = async (id) => {
   const response = await axios(`http://localhost/currentstock/${id}`);
   const warehouseStock = await response.data;
+  console.log(warehouseStock);
   let stockObj = {};
   warehouseStock.map((stock) => {
     let temp = {};
@@ -92,7 +93,8 @@ const createData = async (site, ticket) => {
   let job = site.processTicket(ticket);
 
   console.log(site.warehouses);
-  console.log(job);
+  console.log({ job });
+  console.log({ ticket });
   console.log(ticket.status);
 
   if (job.status === "inProcess") {
@@ -105,8 +107,9 @@ const createData = async (site, ticket) => {
     console.log("warhhoues available:", isWarehouseAvailable);
     if (!isWarehouseAvailable.includes(false)) {
       console.log("true");
+      console.log(job);
       //     //  TODO: send job to db, and update warehouses
-      const response = await axios.post(`http://localhost/processJob`, { job });
+      const response = await axios.post(`http://localhost/processJob`, job);
       console.log(response);
       console.log("yes");
     } else {
@@ -119,15 +122,15 @@ const createData = async (site, ticket) => {
 
 // ###########--> RUN THESE ONE AT A TIME TO FILL DB <--#############
 
-// createData(site2, ticket5)
-// createData(site2, ticket2)
-// createData(site2, ticket3)
-// createData(site2, ticket4)
-// createData(site2, ticket6)
-// createData(site2, ticket1)
-// createData(site1, ticket1)
-// createData(site1, ticket2)
-// createData(site1, ticket3)
-// createData(site1, ticket4)
-// createData(site1, ticket5)
-// createData(site1, ticket6)
+// createData(site2, ticket5);
+// createData(site2, ticket2);
+// createData(site2, ticket3);
+// createData(site2, ticket4);
+// createData(site2, ticket6);
+// createData(site2, ticket1);
+// createData(site1, ticket1);
+// createData(site1, ticket2);
+// createData(site1, ticket3);
+createData(site1, ticket4);
+// createData(site1, ticket5);
+// createData(site1, ticket6);
