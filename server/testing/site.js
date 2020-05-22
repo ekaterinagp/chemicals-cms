@@ -33,16 +33,18 @@ class Site {
     });
     return totalRemainingCapacity;
   }
-  getTotalNumberOfChemicals() {}
+  // getTotalNumberOfChemicals() {}
   processTicket(ticket) {
     ticket.status = "pending";
     if (ticket.type === "incoming") {
       console.log("incoming");
       if (this.getRemainingCapacityOfSite() >= ticket.totalAmount) {
         const placementArray = this.getWarehousesToStoreChemicals(ticket);
+
         // console.log(placementArray)
         if (placementArray) {
           ticket.status = "Approved";
+
           const job = new Job("inProcess", ticket.type, placementArray);
           return job;
         } else {

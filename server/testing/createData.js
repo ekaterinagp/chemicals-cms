@@ -133,4 +133,4 @@ const createData = async (site, ticket) => {
 // createData(site1, ticket3);
 // createData(site1, ticket4);
 createData(site1, ticket5);
-// createData(site1, ticket6);
+createData(site1, ticket6);

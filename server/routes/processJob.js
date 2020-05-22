@@ -18,7 +18,7 @@ router.post("/processJob", async (req, res) => {
   } else {
     jobType = "I";
   }
-  if (job.placementArray[0].Warehouse <= 5) {
+  if (job.placementArray[0].warehouse <= 5) {
     siteID = 1;
   } else {
     siteID = 2;

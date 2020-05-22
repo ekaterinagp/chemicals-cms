@@ -1,21 +1,21 @@
 class Ticket {
-    constructor(type, chemicals){
-        this.chemicals = chemicals
-        this.totalAmount = this.getTotalAmountOfChemicals()
-        this.status
-        this.type = type
-    }
+  constructor(type, chemicals, date) {
+    this.chemicals = chemicals;
+    this.totalAmount = this.getTotalAmountOfChemicals();
+    this.status;
+    this.type = type;
+    this.date = date;
+  }
 
-    getTotalAmountOfChemicals(){
-        let totalAmount = 0;
-        Object.keys(this.chemicals).map(chemical =>{
-            totalAmount = totalAmount+this.chemicals[chemical]
-        })
-        return totalAmount
-    }
-
+  getTotalAmountOfChemicals() {
+    let totalAmount = 0;
+    Object.keys(this.chemicals).map((chemical) => {
+      totalAmount = totalAmount + this.chemicals[chemical];
+    });
+    return totalAmount;
+  }
 }
-module.exports = Ticket
+module.exports = Ticket;
 
 /* Tickets are to be checked to match at a front gate, if ticket is approved, 
  job is raised

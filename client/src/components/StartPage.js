@@ -32,12 +32,26 @@ export default function StartPage() {
       job.date = job.date.substring(0, job.date.length - 9);
       return job;
     });
-    console.log(convertedArray);
+    console.log({ convertedArray });
 
     let permittedValues = convertedArray.map((job) => job.date);
-    console.log(permittedValues);
+    permittedValues.sort();
+    console.log({ permittedValues });
+
+    let randomArray = permittedValues.map((one) => {
+      let addNumber = getRandomInt();
+      if (addNumber < 10) {
+        addNumber = "0" + addNumber;
+      }
+      one = one.substring(0, one.length - 2) + addNumber;
+
+      return one;
+    });
+    randomArray.sort();
+    console.log({ randomArray });
+
     let counts = {};
-    permittedValues.forEach((x) => {
+    randomArray.forEach((x) => {
       counts[x] = (counts[x] || 0) + 1;
       console.log(x);
     });
@@ -59,6 +73,10 @@ export default function StartPage() {
     });
   };
 
+  function getRandomInt() {
+    return Math.floor(Math.random() * 31) + 1;
+  }
+
   function sortByKey(array, key) {
     return array.sort(function (a, b) {
       var x = a[key];
@@ -72,37 +90,7 @@ export default function StartPage() {
   }, []);
 
   //by default last 6 days are shown, on select can change to a month
-  const [jobsDone, setJobDone] = useState({
-    dates: [
-      {
-        t: new Date("2020-5-01"),
-        y: 3,
-      },
-      {
-        t: new Date("2020-5-03"),
-        y: 6,
-      },
-
-      {
-        t: new Date("2020-5-05"),
-        y: 12,
-      },
-
-      {
-        t: new Date("2020-5-06"),
-        y: 2,
-      },
-
-      {
-        t: new Date("2020-5-07 13:3"),
-        y: 10,
-      },
-      {
-        t: new Date("2020-5-08 13:3"),
-        y: 6,
-      },
-    ],
-  });
+  const [jobsDone, setJobDone] = useState({});
 
   const getAlerts = alerts.alerts.map((alert, i) => (
     <div className="notification" key={i}>
