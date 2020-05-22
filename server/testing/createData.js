@@ -93,7 +93,7 @@ const createData = async (site, ticket) => {
   let job = site.processTicket(ticket);
 
   console.log(site.warehouses);
-  console.log({ job });
+  console.log(job);
   console.log({ ticket });
   console.log(ticket.status);
 
@@ -131,6 +131,6 @@ const createData = async (site, ticket) => {
 // createData(site1, ticket1);
 // createData(site1, ticket2);
 // createData(site1, ticket3);
-createData(site1, ticket4);
-// createData(site1, ticket5);
+// createData(site1, ticket4);
+createData(site1, ticket5);
 // createData(site1, ticket6);

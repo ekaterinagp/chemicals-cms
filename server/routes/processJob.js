@@ -7,8 +7,9 @@ const JobItem = require("../models/JobItem");
 const Audit = require("../models/Audit");
 
 router.post("/processJob", async (req, res) => {
-  const { job } = req.body;
+  const job = req.body;
   console.log(req.body);
+  console.log(job);
   let siteID;
 
   let jobType;
