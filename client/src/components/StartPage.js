@@ -9,6 +9,7 @@ export default function StartPage() {
     { label: "last month", value: "month" },
   ]);
 
+  const [result, setResult] = useState([]);
   //rewrite into component
   const [alerts, setAlerts] = useState({
     alerts: [
@@ -56,7 +57,6 @@ export default function StartPage() {
       console.log(x);
     });
     console.log(counts);
-    const result = [];
 
     for (let [key, value] of Object.entries(counts)) {
       result.push({ t: key, y: value });
@@ -67,9 +67,11 @@ export default function StartPage() {
     sortByKey(result, "t");
 
     console.log({ result });
+    console.log(result.slice(result.length - 7));
+    setResult(result);
 
     setJobDone({
-      dates: result,
+      dates: result.slice(result.length - 7),
     });
   };
 
@@ -91,6 +93,7 @@ export default function StartPage() {
 
   //by default last 6 days are shown, on select can change to a month
   const [jobsDone, setJobDone] = useState({});
+  const [jobsDoneMonth, setJobDoneMonth] = useState({});
 
   const getAlerts = alerts.alerts.map((alert, i) => (
     <div className="notification" key={i}>
@@ -103,123 +106,10 @@ export default function StartPage() {
     console.log(selectValue);
     if (selectValue == "month") {
       setJobDone({
-        dates: [
-          {
-            t: new Date("2020-5-01"),
-            y: 3,
-          },
-          {
-            t: new Date("2020-5-03"),
-            y: 6,
-          },
-
-          {
-            t: new Date("2020-5-05"),
-            y: 12,
-          },
-
-          {
-            t: new Date("2020-5-06"),
-            y: 2,
-          },
-
-          {
-            t: new Date("2020-5-07 13:3"),
-            y: 10,
-          },
-          {
-            t: new Date("2020-5-08 13:3"),
-            y: 6,
-          },
-          {
-            t: new Date("2020-5-11"),
-            y: 3,
-          },
-          {
-            t: new Date("2020-5-12"),
-            y: 6,
-          },
-
-          {
-            t: new Date("2020-5-14"),
-            y: 32,
-          },
-
-          {
-            t: new Date("2020-5-17"),
-            y: 2,
-          },
-
-          {
-            t: new Date("2020-5-19"),
-            y: 23,
-          },
-          {
-            t: new Date("2020-5-21"),
-            y: 1,
-          },
-
-          {
-            t: new Date("2020-5-23"),
-            y: 6,
-          },
-
-          {
-            t: new Date("2020-5-24"),
-            y: 32,
-          },
-
-          {
-            t: new Date("2020-5-25"),
-            y: 2,
-          },
-
-          {
-            t: new Date("2020-5-27"),
-            y: 23,
-          },
-          {
-            t: new Date("2020-5-31"),
-            y: 1,
-          },
-        ],
+        dates: result,
       });
     } else {
-      setJobDone({
-        dates: [
-          {
-            t: new Date("2020-5-01"),
-            y: 3,
-          },
-          {
-            t: new Date("2020-5-03"),
-            y: 6,
-          },
-
-          {
-            t: new Date("2020-5-05"),
-            y: 12,
-          },
-
-          {
-            t: new Date("2020-5-06"),
-            y: 2,
-          },
-
-          {
-            t: new Date("2020-5-07 13:3"),
-            y: 10,
-          },
-          {
-            t: new Date("2020-5-08 13:3"),
-            y: 6,
-          },
-          {
-            t: new Date("2020-5-11"),
-            y: 3,
-          },
-        ],
-      });
+      setJobDone({ dates: result.slice(result.length - 7) });
     }
   };
 
