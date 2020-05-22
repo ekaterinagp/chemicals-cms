@@ -19,18 +19,18 @@ const knexFile = require("./knexfile.js");
 
 const knex = Knex(knexFile.development);
 
-// Give the knex instance to objection
 Model.knex(knex);
 
-const Warehouse = require("./models/Warehouse");
-const WarehouseItem = require("./models/WarehouseItem");
+// const Warehouse = require("./models/Warehouse");
+// const WarehouseItem = require("./models/WarehouseItem");
 
-// ROUTES
 const warehouseRoute = require("./routes/warehouses");
 const processJobRoute = require("./routes/processJob");
+const jobsRoute = require("./routes/jobs");
 
 app.use(warehouseRoute);
 app.use(processJobRoute);
+app.use(jobsRoute);
 
 const server = app.listen(80, (error) => {
   if (error) {
