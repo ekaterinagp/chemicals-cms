@@ -6,6 +6,10 @@ const ChartWarehouse = (props) => {
   console.log(props);
   console.log(chartState);
 
+  useEffect(() => {
+    console.log(chartState);
+  }, [chartState]);
+
   const warehouse = Object.values(props).pop();
   console.log(warehouse);
   const letters = Object.keys(props);

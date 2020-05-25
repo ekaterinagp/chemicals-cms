@@ -5,8 +5,35 @@ const WarehouseItem = require("../models/WarehouseItem");
 
 router.get("/currentstock/:id", async (req, res) => {
   const warehouseID = req.params.id;
+  const stock = await WarehouseItem.query()
+    .select()
+    .where("warehouse_id", warehouseID);
+  return res.status(200).send(stock);
+});
+
+router.get("/details/:id", async (req, res) => {
+  const warehouseID = req.params.id;
   const stock = await WarehouseItem.query().where("warehouse_id", warehouseID);
-  return res.send(stock);
+  let details = {
+    A: null,
+    B: null,
+    C: null,
+    warehouse: null,
+  };
+  stock.forEach((one) => {
+    if (one.chemical == "A") {
+      details.A = one.amount;
+    }
+    if (one.chemical == "B") {
+      details.B = one.amount;
+    }
+    if (one.chemical == "C") {
+      details.C = one.amount;
+    }
+    details.warehouse = one.warehouse_id;
+  });
+
+  return res.send(details);
 });
 
 router.get("/warehouses", async (req, res) => {

@@ -11,7 +11,7 @@ export default function StartPage() {
 
   const [result, setResult] = useState([]);
   //rewrite into component
-  const [totalA, setTotalA] = useState([]);
+
   const [alerts, setAlerts] = useState();
 
   const getAlerts = async () => {
@@ -100,7 +100,6 @@ export default function StartPage() {
   useEffect(() => {
     getJobs();
     getAlerts();
-    console.log(alerts);
   }, []);
 
   const [jobsDone, setJobDone] = useState({});
