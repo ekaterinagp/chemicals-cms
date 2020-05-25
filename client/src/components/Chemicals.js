@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../css/chemicals.css";
+import axios from "axios";
 import ChartChemicalsDelivered from "./charts/ChartChemicalsDelivered";
 import ChartChemicalsDispatched from "./charts/ChartChemicalsDispatched";
 
 export default function Chemicals() {
   //preparing for fetch
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [selectLabelsDelivered, setselectLabelsDelivered] = useState([
     { label: "total", value: "total" },
     { label: "today", value: "today" },
@@ -27,6 +28,12 @@ export default function Chemicals() {
     desc: "total",
     total: 344,
   });
+
+  const getAllDelivery = async () => {
+    const allDelivery = await axios.get(`http://localhost/totaldelivery`);
+    console.log(allDelivery.data);
+    setDeliveryForChart(allDelivery.data);
+  };
 
   const [dispatchForChart, setDispatchForChart] = useState({
     A: 300,
@@ -88,7 +95,8 @@ export default function Chemicals() {
 
   useEffect(() => {
     console.log(deliveryForChart);
-  }, [deliveryForChart]);
+    getAllDelivery();
+  }, []);
 
   return (
     <>

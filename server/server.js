@@ -27,10 +27,12 @@ Model.knex(knex);
 const warehouseRoute = require("./routes/warehouses");
 const processJobRoute = require("./routes/processJob");
 const jobsRoute = require("./routes/jobs");
+const chemicalsRoute = require("./routes/chemicals");
 
 app.use(warehouseRoute);
 app.use(processJobRoute);
 app.use(jobsRoute);
+app.use(chemicalsRoute);
 
 const server = app.listen(80, (error) => {
   if (error) {
