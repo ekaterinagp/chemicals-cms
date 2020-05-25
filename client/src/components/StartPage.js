@@ -11,14 +11,24 @@ export default function StartPage() {
 
   const [result, setResult] = useState([]);
   //rewrite into component
-  const [alerts, setAlerts] = useState({
-    alerts: [
-      {
-        reason: "More than 15 A",
-        warehouse: "2",
-      },
-    ],
-  });
+  const [totalA, setTotalA] = useState([]);
+  const [alerts, setAlerts] = useState();
+
+  const getAlerts = async () => {
+    const siteStock = await axios.get(`http://localhost/sites`);
+    console.log(siteStock.data);
+
+    siteStock.data.forEach((one) => {
+      if (one.totalA > 15) {
+        console.log(one);
+        setAlerts({
+          text: "More than 15 A on a site",
+          site: one.site,
+        });
+      }
+    });
+    console.log(alerts);
+  };
 
   const getJobs = async () => {
     const jobs = await axios.get(`http://localhost/jobs`);
@@ -89,18 +99,12 @@ export default function StartPage() {
 
   useEffect(() => {
     getJobs();
+    getAlerts();
+    console.log(alerts);
   }, []);
 
-  //by default last 6 days are shown, on select can change to a month
   const [jobsDone, setJobDone] = useState({});
-  const [jobsDoneMonth, setJobDoneMonth] = useState({});
-
-  const getAlerts = alerts.alerts.map((alert, i) => (
-    <div className="notification" key={i}>
-      <p className="notify"> </p>
-      {alert.reason} at warehouse #{alert.warehouse}
-    </div>
-  ));
+  // const [jobsDoneMonth, setJobDoneMonth] = useState({});
 
   const getValue = (selectValue) => {
     console.log(selectValue);
@@ -115,27 +119,33 @@ export default function StartPage() {
 
   return (
     <>
-      <div>
-        <h1> This is start page</h1>
-        <div className="container-start-page">
-          <div className="alerts box">
-            active alerts
-            {getAlerts}
-          </div>
-          <div className="jobs box">
-            <select
-              value={selectLabels.value}
-              onChange={(e) => getValue(e.currentTarget.value)}
-            >
-              {selectLabels.map(({ label, value }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
+      <h1> This is start page</h1>
+      <div className="container-start-page">
+        <div className="alerts box">
+          <h3> active alerts </h3>
+          {console.log(alerts)}
+          {alerts ? (
+            <div className="notification">
+              <p className="notify"> </p>
+              There are more than 15 A at site #{alerts.site}
+            </div>
+          ) : (
+            <div>There are no active alerts</div>
+          )}
+        </div>
+        <div className="jobs box">
+          <select
+            value={selectLabels.value}
+            onChange={(e) => getValue(e.currentTarget.value)}
+          >
+            {selectLabels.map(({ label, value }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
 
-            <ChartJobs {...jobsDone} />
-          </div>
+          <ChartJobs {...jobsDone} />
         </div>
       </div>
     </>
