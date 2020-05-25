@@ -6,7 +6,7 @@ import ChartChemicalsDispatched from "./charts/ChartChemicalsDispatched";
 
 export default function Chemicals() {
   //preparing for fetch
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectLabelsDelivered, setselectLabelsDelivered] = useState([
     { label: "total", value: "total" },
     { label: "today", value: "today" },
@@ -21,46 +21,57 @@ export default function Chemicals() {
     { label: "month", value: "month" },
   ]);
 
-  const [deliveryForChart, setDeliveryForChart] = useState({
-    A: 120,
-    B: 101,
-    C: 123,
-    desc: "total",
-    total: 344,
-  });
+  const [deliveryForChart, setDeliveryForChart] = useState();
 
   const getAllDelivery = async () => {
     const allDelivery = await axios.get(`http://localhost/totaldelivery`);
     console.log(allDelivery.data);
     setDeliveryForChart(allDelivery.data);
+    setLoading(false);
   };
 
-  const [dispatchForChart, setDispatchForChart] = useState({
-    A: 300,
-    B: 78,
-    C: 201,
-    desc: "total",
-    total: 579,
-  });
+  const getDeliveryByType = async () => {
+    const deliveryByType = await axios.get(`http://localhost/delivery`);
+    console.log(deliveryByType.data);
+    setDeliveredByTypes(deliveryByType.data);
+    setLoading(false);
+  };
+
+  const [dispatchForChart, setDispatchForChart] = useState();
+  //   {
+  //   A: 300,
+  //   B: 78,
+  //   C: 201,
+  //   desc: "total",
+  //   total: 579,
+  // }
+
+  const getAllDispatch = async () => {
+    const allDispatch = await axios.get(`http://localhost/totaldispatch`);
+    console.log(allDispatch.data);
+    setDispatchForChart(allDispatch.data);
+    setLoading(false);
+  };
+
+  const getDispatchByType = async () => {
+    const dispatch = await axios.get(`http://localhost/dispatch`);
+    console.log(dispatch.data);
+    setDispatchedByTypes(dispatch.data);
+    setLoading(false);
+  };
 
   const [dispatchedByTypes, setDispatchedByTypes] = useState([
-    { A: 300, B: 78, C: 201, desc: "total", total: 579 },
-    { A: 10, B: 40, C: 6, desc: "today", total: 56 },
-    { A: 80, B: 50, C: 16, desc: "week", total: 146 },
-    { A: 150, B: 150, C: 50, desc: "month", total: 350 },
+    // { A: 300, B: 78, C: 201, desc: "total", total: 579 },
+    // { A: 10, B: 40, C: 6, desc: "today", total: 56 },
+    // { A: 80, B: 50, C: 16, desc: "week", total: 146 },
+    // { A: 150, B: 150, C: 50, desc: "month", total: 350 },
   ]);
 
-  const [deliveredByTypes, setDeliveredByTypes] = useState([
-    { A: 120, B: 101, C: 123, desc: "total", total: 344 },
-    { A: 10, B: 9, C: 6, desc: "today", total: 25 },
-    { A: 21, B: 14, C: 16, desc: "week", total: 51 },
-    { A: 90, B: 90, C: 20, desc: "month", total: 200 },
-  ]);
+  const [deliveredByTypes, setDeliveredByTypes] = useState([]);
 
   const getValueForDelivered = (selectedValue) => {
     console.log(selectedValue);
 
-    console.log({ deliveryForChart });
     deliveredByTypes.forEach((deliveredByTypes) => {
       if (selectedValue == deliveredByTypes.desc) {
         console.log({ deliveryForChart });
@@ -96,52 +107,71 @@ export default function Chemicals() {
   useEffect(() => {
     console.log(deliveryForChart);
     getAllDelivery();
+    getDeliveryByType();
+    getDispatchByType();
+    getAllDispatch();
   }, []);
 
   return (
     <>
       <div>
+        {" "}
         <h1> This is chemicals page</h1>
-        <div className="chemicals-container">
-          <div className="deliver-container">
-            <h2>Delivered</h2>
-            <select
-              value={selectLabelsDelivered.value}
-              onChange={(e) => getValueForDelivered(e.currentTarget.value)}
-            >
-              {selectLabelsDelivered.map(({ label, value }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-            {Object.keys(deliveryForChart).length === 0 &&
-            deliveryForChart.constructor === Object ? (
-              <p>Loading</p>
-            ) : (
-              <ChartChemicalsDelivered {...deliveryForChart} />
-            )}
+        {loading || deliveryForChart == null ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="chemicals-container">
+            <div className="deliver-container">
+              <h2>Delivered</h2>
+              {deliveredByTypes !== null ? (
+                <>
+                  <select
+                    value={selectLabelsDelivered.value}
+                    onChange={(e) =>
+                      getValueForDelivered(e.currentTarget.value)
+                    }
+                  >
+                    {selectLabelsDelivered.map(({ label, value }) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              ) : (
+                <p>Loading</p>
+              )}
+
+              {Object.keys(deliveryForChart).length === 0 &&
+              deliveryForChart.constructor === Object ? (
+                <p>Loading</p>
+              ) : (
+                <ChartChemicalsDelivered {...deliveryForChart} />
+              )}
+            </div>
+            <div className="dispatch-container">
+              <h2>Dispatched</h2>
+
+              <select
+                value={selectLabelsDispatched.value}
+                onChange={(e) => getValueForDispatched(e.currentTarget.value)}
+              >
+                {selectLabelsDispatched.map(({ label, value }) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+
+              {Object.keys(dispatchForChart).length === 0 &&
+              dispatchForChart.constructor === Object ? (
+                <p>Loading</p>
+              ) : (
+                <ChartChemicalsDispatched {...dispatchForChart} />
+              )}
+            </div>
           </div>
-          <div className="dispatch-container">
-            <h2>Dispatched</h2>
-            <select
-              value={selectLabelsDispatched.value}
-              onChange={(e) => getValueForDispatched(e.currentTarget.value)}
-            >
-              {selectLabelsDispatched.map(({ label, value }) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-            {Object.keys(dispatchForChart).length === 0 &&
-            dispatchForChart.constructor === Object ? (
-              <p>Loading</p>
-            ) : (
-              <ChartChemicalsDispatched {...dispatchForChart} />
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </>
   );
