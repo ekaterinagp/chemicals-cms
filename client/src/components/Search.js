@@ -10,10 +10,14 @@ import axios from "axios";
 export default function Search() {
   const [loading, setLoading] = useState(true);
   const [active, setActive] = useState(0);
+  const [indexN, setIndexN] = useState(0);
   const handleClick = (e) => {
     const index = parseInt(e.target.id, 0);
+    setIndexN(index);
+    console.log({ indexN });
     if (index !== active) {
       setActive(index);
+      console.log(active);
     }
   };
 
@@ -84,7 +88,7 @@ export default function Search() {
     });
   };
 
-  const sortByWarehouse = () => {
+  const sortByWarehouse1 = () => {
     // console.log(site1DetailedData[0].date);
     const sortedByWarehouse = [...site1DetailedData].sort((a, b) => {
       return a.warehouse - b.warehouse;
@@ -92,7 +96,15 @@ export default function Search() {
     setSite1DetailedData(sortedByWarehouse);
   };
 
-  const sortByDate = () => {
+  const sortByWarehouse2 = () => {
+    // console.log(site1DetailedData[0].date);
+    const sortedByWarehouse = [...site2DetailedData].sort((a, b) => {
+      return a.warehouse - b.warehouse;
+    });
+    setSite2DetailedData(sortedByWarehouse);
+  };
+
+  const sortByDate1 = () => {
     const sortedByDate = [...site1DetailedData].sort((a, b) => {
       let dateA = new Date(a.date),
         dateB = new Date(b.date);
@@ -102,9 +114,17 @@ export default function Search() {
     setSite1DetailedData(sortedByDate);
   };
 
-  const [searchDates, setSearchDates] = useState();
+  const sortByDate2 = () => {
+    const sortedByDate = [...site2DetailedData].sort((a, b) => {
+      let dateA = new Date(a.date),
+        dateB = new Date(b.date);
 
-  const [object, setObject] = useState();
+      return dateA - dateB;
+    });
+    setSite2DetailedData(sortedByDate);
+  };
+
+  const [searchDates, setSearchDates] = useState();
 
   function handleSearchDates(value) {
     console.log(value);
@@ -118,7 +138,7 @@ export default function Search() {
   }
 
   const clearFilters = async () => {
-    window.location.reload(false);
+    setSearchDates(null);
     ref.current.cleanValue();
   };
 
@@ -126,30 +146,55 @@ export default function Search() {
     if (searchDates == null) {
       getData();
     }
-
-    console.log(searchDates);
-    if (searchDates && searchDates.endDate) {
-      console.log(searchDates);
-      let filteredDates = site1DetailedData.filter((item) => {
-        let date = moment.utc(item.date)._d;
-        console.log(date);
-        console.log(searchDates.startDate);
-        if (
-          moment(date).isBetween(
-            moment(searchDates.startDate),
-            moment(searchDates.endDate),
-            null,
-            "[]"
-          )
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-      console.log(filteredDates);
-      setSite1DetailedData(filteredDates);
+    console.log({ indexN });
+    if (active === 1) {
+      if (searchDates && searchDates.endDate) {
+        // console.log(searchDates);
+        let filteredDates = site2DetailedData.filter((item) => {
+          let date = moment.utc(item.date)._d;
+          console.log(date);
+          console.log(searchDates.startDate);
+          if (
+            moment(date).isBetween(
+              moment(searchDates.startDate),
+              moment(searchDates.endDate),
+              null,
+              "[]"
+            )
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        console.log(filteredDates);
+        setSite2DetailedData(filteredDates);
+      }
+    } else {
+      if (searchDates && searchDates.endDate) {
+        // console.log(searchDates);
+        let filteredDates = site1DetailedData.filter((item) => {
+          let date = moment.utc(item.date)._d;
+          console.log(date);
+          console.log(searchDates.startDate);
+          if (
+            moment(date).isBetween(
+              moment(searchDates.startDate),
+              moment(searchDates.endDate),
+              null,
+              "[]"
+            )
+          ) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        console.log(filteredDates);
+        setSite1DetailedData(filteredDates);
+      }
     }
+    // console.log(searchDates1);
   }, [searchDates]);
 
   //
@@ -157,7 +202,7 @@ export default function Search() {
   return (
     <div>
       <h1>This is search page </h1>
-      <button onClick={clearFilters}>Clear all filters</button>
+
       <Tabs>
         <Tab onClick={handleClick} active={active === 0} id={0}>
           Site 1
@@ -175,20 +220,21 @@ export default function Search() {
           ) : (
             <div className="total-container">
               <h2> Total</h2>
+              <button onClick={clearFilters}>Clear all filters</button>
               <p>
                 A: {site1DataTotal.A} B: {site1DataTotal.B} C:{" "}
                 {site1DataTotal.C} Alert: {site1DataTotal.alert}{" "}
               </p>
 
-              <button onClick={sortByWarehouse}>Sort by warehouse</button>
-              <button onClick={sortByDate}>Sort by date</button>
+              <button onClick={sortByWarehouse1}>Sort by warehouse</button>
+              <button onClick={sortByDate1}>Sort by date</button>
 
               <div>
                 <Accordion title="Search by date">
                   <Datepicker
                     value={searchDates}
                     parentFunction={handleSearchDates}
-                    // ref={ref}
+                    ref={ref}
                   />
                 </Accordion>
               </div>
@@ -207,7 +253,6 @@ export default function Search() {
                         <p className="tabel-item"> {data.ticket}</p>
                       </div>
                     ))}
-                    {/* }); */}
                   </div>
                 </div>
               ) : (
@@ -218,6 +263,51 @@ export default function Search() {
         </Content>
         <Content active={active === 1}>
           <h1>Content 2</h1>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="total-container">
+              <h2> Total</h2>
+              <button onClick={clearFilters}>Clear all filters</button>
+              <p>
+                A: {site2DataTotal.A} B: {site2DataTotal.B} C:{" "}
+                {site2DataTotal.C} Alert: {site2DataTotal.alert}{" "}
+              </p>
+
+              <button onClick={sortByWarehouse2}>Sort by warehouse</button>
+              <button onClick={sortByDate2}>Sort by date</button>
+
+              <div>
+                <Accordion title="Search by date">
+                  <Datepicker
+                    value={searchDates}
+                    parentFunction={handleSearchDates}
+                    ref={ref}
+                  />
+                </Accordion>
+              </div>
+
+              {site2DetailedData && site2DetailedData.length ? (
+                <div>
+                  <div>
+                    {" "}
+                    {renderTableHeader(site2DetailedData)}
+                    {site2DetailedData.map((data, i) => (
+                      <div className="table-rows" key={i}>
+                        <p className="tabel-item"> {data.chemical}</p>
+                        <p className="tabel-item"> {data.action}</p>
+                        <p className="tabel-item"> {data.date}</p>
+                        <p className="tabel-item"> {data.warehouse}</p>
+                        <p className="tabel-item"> {data.ticket}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <p>Loading...</p>
+              )}
+            </div>
+          )}
         </Content>
       </>
     </div>
