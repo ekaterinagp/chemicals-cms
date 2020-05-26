@@ -47,7 +47,62 @@ router.get("/items", async (req, res) => {
   return res.send(warehousesDetails);
 });
 
+//{
+//   A: 25,
+//   B: 15,
+//   C: 12,
+//   alert: 0,
+// }
+
 router.get("/sites", async (req, res) => {
+  const warehousesDetails = await WarehouseItem.query();
+  // console.log(warehousesDetails);
+
+  const sites = {
+    site1A: null,
+    site1B: null,
+    site1C: null,
+    site1alert: 0,
+    site2A: null,
+    site2B: null,
+    site2C: null,
+    site2alert: 0,
+  };
+
+  warehousesDetails.forEach((warehouse) => {
+    if (warehouse.warehouse_id > 5) {
+      if (warehouse.chemical == "A") {
+        sites.site2A = sites.site2A + warehouse.amount;
+      }
+      if (warehouse.chemical == "B") {
+        sites.site2B = sites.site2B + warehouse.amount;
+      }
+      if (warehouse.chemical == "C") {
+        sites.site2C = sites.site2C + warehouse.amount;
+      }
+      if (sites.site2A > 15) {
+        sites.site2alert = 1;
+      }
+    } else {
+      if (warehouse.chemical == "A") {
+        sites.site1A = sites.site1A + warehouse.amount;
+      }
+      if (warehouse.chemical == "B") {
+        sites.site1B = sites.site1B + warehouse.amount;
+      }
+      if (warehouse.chemical == "C") {
+        sites.site1C = sites.site1C + warehouse.amount;
+      }
+      if (sites.site1A > 15) {
+        sites.site1alert = 1;
+      }
+    }
+  });
+
+  return res.send(sites);
+});
+
+router.get("/sitesTotalA", async (req, res) => {
   const warehousesDetails = await WarehouseItem.query();
 
   const sites = {

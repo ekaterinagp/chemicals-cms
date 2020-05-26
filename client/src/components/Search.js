@@ -5,8 +5,10 @@ import "../css/search.css";
 import Datepicker from "./Datepicker/Datepicker";
 import Accordion from "./Accordion";
 import * as moment from "moment";
+import axios from "axios";
 
 export default function Search() {
+  const [loading, setLoading] = useState(true);
   const [active, setActive] = useState(0);
   const handleClick = (e) => {
     const index = parseInt(e.target.id, 0);
@@ -17,70 +19,59 @@ export default function Search() {
 
   const ref = useRef(null);
 
-  const [site1DataTotal, setSite1DataTotal] = useState({
-    A: 25,
-    B: 15,
-    C: 12,
-    alert: 0,
-  });
+  const getSiteTotalData = async () => {
+    const siteData = await axios.get(`http://localhost/sites`);
+    console.log(siteData.data);
+    const site1 = {
+      A: siteData.data.site1A,
+      B: siteData.data.site1B,
+      C: siteData.data.site1C,
+      alert: siteData.data.site1alert,
+    };
 
-  const [site1DetailedData, setSite1DetailedData] = useState([
-    {
-      chemical: "A",
-      action: "delivered",
-      date: "12-05-2020",
-      warehouse: 1,
-      ticket: "12345678",
-    },
-    {
-      chemical: "C",
-      action: "dispatched",
-      date: "04-05-2020",
-      warehouse: 1,
-      ticket: "123422678",
-    },
-    {
-      chemical: "B",
-      action: "delivered",
-      date: "07-05-2020",
-      warehouse: 5,
-      ticket: "12345228",
-    },
-    {
-      chemical: "B",
-      action: "delivered",
-      date: "08-05-2020",
-      warehouse: 2,
-      ticket: "12445678",
-    },
-    {
-      chemical: "A",
-      action: "dispatched",
-      date: "05-05-2020",
-      warehouse: 3,
-      ticket: "21345678",
-    },
-    {
-      chemical: "C",
-      action: "delivered",
-      date: "13-05-2020",
-      warehouse: 1,
-      ticket: "11345678",
-    },
-  ]);
-  // console.log(site1DataTotal);
+    setSite1DataTotal(site1);
 
-  let detailedData = site1DetailedData.map((data, i) => {
-    return (
-      <div className="table-rows" key={i}>
-        <p className="tabel-item"> {data.chemical}</p>
-        <p className="tabel-item"> {data.action}</p>
-        <p className="tabel-item"> {data.date}</p>
-        <p className="tabel-item"> {data.warehouse}</p>
-        <p className="tabel-item"> {data.ticket}</p>
-      </div>
-    );
-  });
+    const site2 = {
+      A: siteData.data.site2A,
+      B: siteData.data.site2B,
+      C: siteData.data.site2C,
+      alert: siteData.data.site2alert,
+    };
+    setSite2DataTotal(site2);
+    console.log(site1, site2);
+    setLoading(false);
+  };
+
+  const getListChemicals = async () => {
+    setLoading(true);
+    const list = await axios.get(`http://localhost/listChemical`);
+    console.log(list.data);
+    const site1FullData = [];
+    const site2FullData = [];
+    list.data.forEach((element) => {
+      if (element.warehouse > 5) {
+        site2FullData.push(element);
+      } else {
+        site1FullData.push(element);
+      }
+    });
+    console.log(site2FullData, site1FullData);
+    setSite1DetailedData(site1FullData);
+    setSite2DetailedData(site2FullData);
+    setLoading(false);
+  };
+
+  const getData = () => {
+    getSiteTotalData();
+    getListChemicals();
+  };
+
+  const [site1DataTotal, setSite1DataTotal] = useState();
+
+  const [site2DataTotal, setSite2DataTotal] = useState();
+
+  const [site1DetailedData, setSite1DetailedData] = useState();
+  const [site2DetailedData, setSite2DetailedData] = useState();
 
   const renderTableHeader = (data) => {
     let header = Object.keys(data[0]);
@@ -113,30 +104,38 @@ export default function Search() {
 
   const [searchDates, setSearchDates] = useState();
 
+  const [object, setObject] = useState();
+
   function handleSearchDates(value) {
     console.log(value);
-    setSearchDates(value);
+    const searchOb = {
+      endDate: value.endDate,
+      startDate: value.startDate,
+    };
+    setSearchDates(searchOb);
+
     console.log(searchDates);
   }
 
-  const clearFilters = () => {
-    setSite1DetailedData([
-      { chemical: "A", action: "delivered", date: "12-05-2020", warehouse: 1 },
-      { chemical: "C", action: "dispatched", date: "04-05-2020", warehouse: 1 },
-      { chemical: "B", action: "delivered", date: "07-05-2020", warehouse: 5 },
-      { chemical: "B", action: "delivered", date: "08-05-2020", warehouse: 2 },
-      { chemical: "A", action: "dispatched", date: "05-05-2020", warehouse: 3 },
-      { chemical: "C", action: "delivered", date: "13-05-2020", warehouse: 1 },
-    ]);
+  const clearFilters = async () => {
+    window.location.reload(false);
     ref.current.cleanValue();
   };
+
   useEffect(() => {
+    if (searchDates == null) {
+      getData();
+    }
+
     console.log(searchDates);
     if (searchDates && searchDates.endDate) {
       console.log(searchDates);
       let filteredDates = site1DetailedData.filter((item) => {
+        let date = moment.utc(item.date)._d;
+        console.log(date);
+        console.log(searchDates.startDate);
         if (
-          moment(item.date, "DD-MM-YYYY").isBetween(
+          moment(date).isBetween(
             moment(searchDates.startDate),
             moment(searchDates.endDate),
             null,
@@ -171,31 +170,51 @@ export default function Search() {
       <>
         <Content active={active === 0}>
           <h1>Site 1</h1>
-          <div className="total-container">
-            <h2> Total</h2>
-            <p>
-              A: {site1DataTotal.A} B: {site1DataTotal.B} C: {site1DataTotal.C}{" "}
-              Alert: {site1DataTotal.alert}{" "}
-            </p>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="total-container">
+              <h2> Total</h2>
+              <p>
+                A: {site1DataTotal.A} B: {site1DataTotal.B} C:{" "}
+                {site1DataTotal.C} Alert: {site1DataTotal.alert}{" "}
+              </p>
 
-            <button onClick={sortByWarehouse}>Sort by warehouse</button>
-            <button onClick={sortByDate}>Sort by date</button>
+              <button onClick={sortByWarehouse}>Sort by warehouse</button>
+              <button onClick={sortByDate}>Sort by date</button>
 
-            <div>
-              <Accordion title="Search by date">
-                <Datepicker
-                  value={searchDates}
-                  onChange={handleSearchDates}
-                  ref={ref}
-                />
-              </Accordion>
+              <div>
+                <Accordion title="Search by date">
+                  <Datepicker
+                    value={searchDates}
+                    parentFunction={handleSearchDates}
+                    // ref={ref}
+                  />
+                </Accordion>
+              </div>
+
+              {site1DetailedData && site1DetailedData.length ? (
+                <div>
+                  <div>
+                    {" "}
+                    {renderTableHeader(site1DetailedData)}
+                    {site1DetailedData.map((data, i) => (
+                      <div className="table-rows" key={i}>
+                        <p className="tabel-item"> {data.chemical}</p>
+                        <p className="tabel-item"> {data.action}</p>
+                        <p className="tabel-item"> {data.date}</p>
+                        <p className="tabel-item"> {data.warehouse}</p>
+                        <p className="tabel-item"> {data.ticket}</p>
+                      </div>
+                    ))}
+                    {/* }); */}
+                  </div>
+                </div>
+              ) : (
+                <p>Loading...</p>
+              )}
             </div>
-
-            <div>
-              {renderTableHeader(site1DetailedData)}
-              {detailedData}
-            </div>
-          </div>
+          )}
         </Content>
         <Content active={active === 1}>
           <h1>Content 2</h1>

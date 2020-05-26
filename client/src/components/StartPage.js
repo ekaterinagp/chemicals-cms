@@ -15,7 +15,7 @@ export default function StartPage() {
   const [alerts, setAlerts] = useState();
 
   const getAlerts = async () => {
-    const siteStock = await axios.get(`http://localhost/sites`);
+    const siteStock = await axios.get(`http://localhost/sitesTotalA`);
     console.log(siteStock.data);
 
     siteStock.data.forEach((one) => {

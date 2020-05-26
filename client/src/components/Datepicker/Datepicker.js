@@ -56,10 +56,11 @@ const Datepicker = forwardRef((props, ref) => {
       setState({ ...data, focusedInput: START_DATE });
     } else {
       setState(data);
+
       console.log(data);
     }
-    props.onChange(data);
     console.log(data);
+    props.parentFunction(data);
   }
 
   return (
@@ -76,14 +77,14 @@ const Datepicker = forwardRef((props, ref) => {
         onDateHover,
       }}
     >
-      {/* <div>
+      <div>
         <strong>Start date: </strong>
         {state.startDate && state.startDate.toLocaleString()}
       </div>
       <div>
         <strong>End date: </strong>
         {state.endDate && state.endDate.toLocaleString()}
-      </div> */}
+      </div>
 
       <NavButton onClick={goToPreviousMonths}>Previous</NavButton>
       <NavButton onClick={goToNextMonths}>Next</NavButton>
