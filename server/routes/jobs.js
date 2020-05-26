@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Job = require("../models/Job");
+const Audit = require("../models/Audit");
 router.get("/jobs", async (req, res) => {
   const jobs = await Job.query();
   return res.status(200).send({ response: jobs });
@@ -36,6 +37,32 @@ router.get("/listChemical", async (req, res) => {
     arrayOfJobs.push(jobObject);
   });
   return res.send(arrayOfJobs);
+});
+
+router.get("/audit", async (req, res) => {
+  const audit = await Audit.query();
+  const arrayOfItems = [];
+  let one = {
+    type: null,
+    chemical: null,
+    amount: null,
+    warehouse: null,
+    site: null,
+    date: null,
+  };
+  audit.forEach((a) => {
+    one = {
+      type: a.type == "I" ? "delivered" : "dispatched",
+      chemical: a.chemical,
+      amount: a.amount,
+      warehouse: a.warehouse_id,
+      site: a.site_id,
+      date: a.date.substring(0, a.date.length - 9),
+    };
+    arrayOfItems.push(one);
+  });
+
+  res.send(arrayOfItems);
 });
 
 module.exports = router;
