@@ -10,11 +10,14 @@ export default function Statistic() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
   const pageLimit = 10;
+  let initialState = [];
 
   const getAuditData = async () => {
     const list = await axios.get(`http://localhost/audit`);
     console.log(list.data);
     setAudit(list.data);
+    initialState = list.data;
+    console.log(initialState);
     setLoading(false);
   };
 
@@ -27,6 +30,48 @@ export default function Statistic() {
         </p>
       );
     });
+  };
+  const sortByDate = () => {
+    setAudit();
+    const sortedByDate = [...audit].sort((a, b) => {
+      let dateA = new Date(a.date),
+        dateB = new Date(b.date);
+
+      return dateA - dateB;
+    });
+    setAudit(sortedByDate);
+  };
+
+  const getOnlyDelivered = () => {
+    console.log(initialState);
+    console.log({ audit });
+    setAudit(initialState);
+
+    const delivered = audit.filter((one) => {
+      return one.type == "delivered";
+    });
+
+    console.log(delivered);
+
+    setAudit(delivered);
+  };
+
+  const getOnlyDispatched = () => {
+    console.log(initialState);
+
+    setAudit(initialState);
+    console.log({ audit });
+    const dispatched = audit.filter((one) => {
+      return one.type == "dispatched";
+    });
+
+    console.log(dispatched);
+
+    setAudit(dispatched);
+  };
+
+  const showAll = () => {
+    getAuditData();
   };
 
   useEffect(() => {
@@ -48,6 +93,10 @@ export default function Statistic() {
           <p>Loading...</p>
         ) : (
           <div className="div-stat">
+            <button onClick={showAll}>Show All</button>
+            <button onClick={sortByDate}>Sort by date</button>
+            <button onClick={getOnlyDelivered}>Only delivered</button>
+            <button onClick={getOnlyDispatched}>Only dispatched</button>
             <div>
               <Paginator
                 totalRecords={audit.length}
