@@ -24,6 +24,7 @@ export default function Chemicals() {
   const [deliveryForChart, setDeliveryForChart] = useState();
 
   const getAllDelivery = async () => {
+    setLoading(true);
     const allDelivery = await axios.get(`http://localhost/totaldelivery`);
     console.log(allDelivery.data);
     setDeliveryForChart(allDelivery.data);
@@ -31,6 +32,7 @@ export default function Chemicals() {
   };
 
   const getDeliveryByType = async () => {
+    setLoading(true);
     const deliveryByType = await axios.get(`http://localhost/delivery`);
     console.log(deliveryByType.data);
     setDeliveredByTypes(deliveryByType.data);
@@ -47,6 +49,7 @@ export default function Chemicals() {
   // }
 
   const getAllDispatch = async () => {
+    setLoading(true);
     const allDispatch = await axios.get(`http://localhost/totaldispatch`);
     console.log(allDispatch.data);
     setDispatchForChart(allDispatch.data);
@@ -54,6 +57,7 @@ export default function Chemicals() {
   };
 
   const getDispatchByType = async () => {
+    setLoading(true);
     const dispatch = await axios.get(`http://localhost/dispatch`);
     console.log(dispatch.data);
     setDispatchedByTypes(dispatch.data);
@@ -152,7 +156,7 @@ export default function Chemicals() {
             <div className="dispatch-container">
               <h2>Dispatched</h2>
 
-              <select
+              {/* <select
                 value={selectLabelsDispatched.value}
                 onChange={(e) => getValueForDispatched(e.currentTarget.value)}
               >
@@ -161,10 +165,18 @@ export default function Chemicals() {
                     {label}
                   </option>
                 ))}
+              </select> */}
+
+              <select
+                onChange={(e) => getValueForDispatched(e.currentTarget.value)}
+              >
+                <option defaultValue="total">Total</option>
+                <option value="today">Today</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
               </select>
 
-              {Object.keys(dispatchForChart).length === 0 &&
-              dispatchForChart.constructor === Object ? (
+              {loading ? (
                 <p>Loading</p>
               ) : (
                 <ChartChemicalsDispatched {...dispatchForChart} />

@@ -7,11 +7,11 @@ router.get("/totaldelivery", async (req, res) => {
   const jobs = await Job.query().withGraphFetched("jobitem").where("type", "I");
 
   const allDelivery = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "total",
-    total: null,
+    total: 0,
   };
   jobs.forEach((job) => {
     // console.log(job.jobitem);
@@ -33,11 +33,11 @@ router.get("/totaldispatch", async (req, res) => {
   const jobs = await Job.query().withGraphFetched("jobitem").where("type", "O");
 
   const allDispatch = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "total",
-    total: null,
+    total: 0,
   };
   jobs.forEach((job) => {
     // console.log(job.jobitem);
@@ -60,11 +60,11 @@ router.get("/delivery", async (req, res) => {
   sortByKey(jobs, "date");
   const deliveryByType = [];
   const totalDelivery = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "total",
-    total: null,
+    total: 0,
   };
   jobs.forEach((job) => {
     // console.log(job.jobitem);
@@ -82,11 +82,11 @@ router.get("/delivery", async (req, res) => {
   deliveryByType.push(totalDelivery);
 
   const todayDelivery = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "today",
-    total: null,
+    total: 0,
   };
   let todayDate = getDate();
 
@@ -107,11 +107,11 @@ router.get("/delivery", async (req, res) => {
   deliveryByType.push(todayDelivery);
 
   const weekDelivery = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "week",
-    total: null,
+    total: 0,
   };
 
   // let dateTo = moment().format("YYYY-MM-DD");
@@ -135,11 +135,11 @@ router.get("/delivery", async (req, res) => {
   deliveryByType.push(weekDelivery);
 
   const monthDelivery = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "month",
-    total: null,
+    total: 0,
   };
   let month = getMonth();
 
@@ -167,11 +167,11 @@ router.get("/dispatch", async (req, res) => {
   sortByKey(jobs, "date");
   const dispatchedByType = [];
   const totalDispatch = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "total",
-    total: null,
+    total: 0,
   };
   jobs.forEach((job) => {
     // console.log(job.jobitem);
@@ -189,11 +189,11 @@ router.get("/dispatch", async (req, res) => {
   dispatchedByType.push(totalDispatch);
 
   const todayDispatch = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "today",
-    total: null,
+    total: 0,
   };
   let todayDate = getDate();
 
@@ -214,11 +214,11 @@ router.get("/dispatch", async (req, res) => {
   dispatchedByType.push(todayDispatch);
 
   const weekDispatch = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "week",
-    total: null,
+    total: 0,
   };
 
   // let dateTo = moment().format("YYYY-MM-DD");
@@ -242,11 +242,11 @@ router.get("/dispatch", async (req, res) => {
   dispatchedByType.push(weekDispatch);
 
   const monthDispatch = {
-    A: null,
-    B: null,
-    C: null,
+    A: 0,
+    B: 0,
+    C: 0,
     desc: "month",
-    total: null,
+    total: 0,
   };
   let month = getMonth();
 
