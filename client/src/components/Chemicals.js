@@ -8,17 +8,17 @@ export default function Chemicals() {
   //preparing for fetch
   const [loading, setLoading] = useState(true);
   const [selectLabelsDelivered, setselectLabelsDelivered] = useState([
-    { label: "total", value: "total" },
-    { label: "today", value: "today" },
-    { label: "week", value: "week" },
-    { label: "month", value: "month" },
+    { label: "Total", value: "total" },
+    { label: "Today", value: "today" },
+    { label: "Week", value: "week" },
+    { label: "Month", value: "month" },
   ]);
 
   const [selectLabelsDispatched, setSelectLabelsDispatched] = useState([
-    { label: "total", value: "total" },
-    { label: "today", value: "today" },
-    { label: "week", value: "week" },
-    { label: "month", value: "month" },
+    { label: "Total", value: "total" },
+    { label: "Today", value: "today" },
+    { label: "Week", value: "week" },
+    { label: "Month", value: "month" },
   ]);
 
   const [deliveryForChart, setDeliveryForChart] = useState();
@@ -40,13 +40,6 @@ export default function Chemicals() {
   };
 
   const [dispatchForChart, setDispatchForChart] = useState();
-  //   {
-  //   A: 300,
-  //   B: 78,
-  //   C: 201,
-  //   desc: "total",
-  //   total: 579,
-  // }
 
   const getAllDispatch = async () => {
     setLoading(true);
@@ -120,27 +113,30 @@ export default function Chemicals() {
     <>
       <div>
         {" "}
-        <h1> This is chemicals page</h1>
+        <h1 className="title"> Chemicals overview</h1>
         {loading || deliveryForChart == null ? (
           <p>Loading...</p>
         ) : (
           <div className="chemicals-container">
-            <div className="deliver-container">
+            <div className="deliver-container box">
               <h2>Delivered</h2>
               {deliveredByTypes !== null ? (
                 <>
-                  <select
-                    value={selectLabelsDelivered.value}
-                    onChange={(e) =>
-                      getValueForDelivered(e.currentTarget.value)
-                    }
-                  >
-                    {selectLabelsDelivered.map(({ label, value }) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="divSelect">
+                    <select
+                      className="arrows"
+                      value={selectLabelsDelivered.value}
+                      onChange={(e) =>
+                        getValueForDelivered(e.currentTarget.value)
+                      }
+                    >
+                      {selectLabelsDelivered.map(({ label, value }) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </>
               ) : (
                 <p>Loading</p>
@@ -153,7 +149,7 @@ export default function Chemicals() {
                 <ChartChemicalsDelivered {...deliveryForChart} />
               )}
             </div>
-            <div className="dispatch-container">
+            <div className="dispatch-container box">
               <h2>Dispatched</h2>
 
               {/* <select
@@ -166,16 +162,17 @@ export default function Chemicals() {
                   </option>
                 ))}
               </select> */}
-
-              <select
-                onChange={(e) => getValueForDispatched(e.currentTarget.value)}
-              >
-                <option defaultValue="total">Total</option>
-                <option value="today">Today</option>
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-              </select>
-
+              <div className="divSelect">
+                <select
+                  className="arrows"
+                  onChange={(e) => getValueForDispatched(e.currentTarget.value)}
+                >
+                  <option defaultValue="total">Total</option>
+                  <option value="today">Today</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
+                </select>
+              </div>
               {loading ? (
                 <p>Loading</p>
               ) : (

@@ -92,55 +92,61 @@ export default function Warehouses() {
 
   return (
     <>
-      <h1> This is warehouse page</h1>
-      <h2>Site 1</h2>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="warehouse-container">
-          <div className="canvas-container">
-            <ChartWarehouse {...data1} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data2} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data3} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data4} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data5} />
-          </div>
-        </div>
-      )}
-      <h2>Site 2</h2>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="warehouse-container">
-          <div className="canvas-container">
-            <ChartWarehouse {...data6} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data7} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data8} />
-          </div>
-          <div className="canvas-container">
-            <ChartWarehouse {...data9} />
-          </div>
-          {data10.warehouse === null ? (
-            <p>Empty warehouse</p>
+      <h1 className="title"> Current stock </h1>
+      <div className="superWrapper">
+        <div className="site-wrapper box">
+          <h2 className="title1">Site 1</h2>
+          {isLoading ? (
+            <p>Loading...</p>
           ) : (
-            <div className="canvas-container">
-              <ChartWarehouse {...data10} />
+            <div className="warehouse-container">
+              <div className="canvas-container">
+                <ChartWarehouse {...data1} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data2} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data3} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data4} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data5} />
+              </div>
             </div>
           )}
         </div>
-      )}
+        <div className="site-wrapper2 box">
+          <h2 className="title1">Site 2</h2>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <div className="warehouse-container">
+              <div className="canvas-container">
+                <ChartWarehouse {...data6} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data7} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data8} />
+              </div>
+              <div className="canvas-container">
+                <ChartWarehouse {...data9} />
+              </div>
+              {data10.warehouse === null ? (
+                <p>Empty warehouse</p>
+              ) : (
+                <div className="canvas-container">
+                  <ChartWarehouse {...data10} />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 }

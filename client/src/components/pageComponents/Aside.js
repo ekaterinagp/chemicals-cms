@@ -15,7 +15,7 @@ import Search from "../Search";
 export default function Aside() {
   return (
     <Router>
-      <div>
+      <div className="container">
         <nav className="aside">
           <ul>
             <li>
@@ -46,23 +46,25 @@ export default function Aside() {
           </ul>
         </nav>
 
-        <Switch>
-          <Route path="/chemicals">
-            <Chemicals />
-          </Route>
-          <Route path="/warehouses">
-            <Warehouses />
-          </Route>
-          <Route path="/search">
-            <Search />
-          </Route>
-          <Route path="/statistics">
-            <Statistic />
-          </Route>
-          <Route path="/">
-            <StartPage />
-          </Route>
-        </Switch>
+        <div className="content">
+          <Switch>
+            <Route path="/chemicals">
+              <Chemicals />
+            </Route>
+            <Route path="/warehouses">
+              <Warehouses />
+            </Route>
+            <Route path="/search">
+              <Search />
+            </Route>
+            <Route path="/statistics">
+              <Statistic />
+            </Route>
+            <Route path="/">
+              <StartPage />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </Router>
   );

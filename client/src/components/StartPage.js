@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import ChartJobs from "./charts/ChartJobs";
 import "../css/startPage.css";
 import axios from "axios";
+import { FaAngleDown } from "react-icons/fa";
 
 export default function StartPage() {
   const [selectLabels, setselectLabels] = useState([
-    { label: "Last week", value: "week" },
+    { label: "Last week ", value: "week" },
     { label: "Last month", value: "month" },
   ]);
 
@@ -143,6 +144,7 @@ export default function StartPage() {
             <p className="job-text">Jobs completed by</p>
             <div>
               <select
+                className="arrows"
                 value={selectLabels.value}
                 onChange={(e) => getValue(e.currentTarget.value)}
               >

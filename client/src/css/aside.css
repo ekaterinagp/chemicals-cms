@@ -1,10 +1,11 @@
 .aside {
-  float: left;
+  /* float: left;
   margin-top: -2vh;
   width: 30%;
-  height: 90vh;
+  height: 90vh; */
   background-color: #629c81;
   color: white;
+  grid-area: aside;
 }
 
 a {
@@ -16,4 +17,15 @@ li {
   list-style: none;
   padding: 20px;
   font-size: 30px;
+}
+
+.container {
+  height: 90%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "aside content";
+}
+
+.content {
+  grid-area: content;
 }

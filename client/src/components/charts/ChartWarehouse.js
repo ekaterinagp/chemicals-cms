@@ -26,18 +26,38 @@ const ChartWarehouse = (props) => {
       labels: letters,
       datasets: [
         {
-          label: `Warehouse# ${warehouse}`,
+          label: `Warehouse`,
           data: values,
           backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
+            "rgba(249, 248, 113, 0.4)",
+            "rgba(87, 120, 114, 0.4)",
           ],
-          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-          borderWidth: 1,
+          borderColor: ["rgba(249, 248, 113, 1)", "rgba(87, 120, 114, 1)"],
+          // borderWidth: 1,
         },
       ],
     },
     options: {
+      legend: {
+        display: false,
+        position: "left",
+        labels: {
+          fontColor: "rgb(85, 84, 84)",
+        },
+      },
+      title: {
+        display: true,
+        text: `Warehouse# ${warehouse}`,
+        position: "top",
+      },
+      layout: {
+        padding: {
+          left: 70,
+          right: 0,
+          top: 0,
+          bottom: 0,
+        },
+      },
       scales: {
         yAxes: [
           {

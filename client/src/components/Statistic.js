@@ -10,14 +10,15 @@ export default function Statistic() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
   const pageLimit = 10;
-  let initialState = [];
+  const [initialState, setInitialState] = useState([]);
 
   const getAuditData = async () => {
     const list = await axios.get(`http://localhost/audit`);
     console.log(list.data);
     setAudit(list.data);
-    initialState = list.data;
+    setInitialState(list.data);
     console.log(initialState);
+    console.log(audit);
     setLoading(false);
   };
 
@@ -56,10 +57,16 @@ export default function Statistic() {
     setAudit(delivered);
   };
 
-  const getOnlyDispatched = () => {
-    console.log(initialState);
-
+  const handelClick = () => {
+    console.log({ audit });
     setAudit(initialState);
+
+    getOnlyDispatched();
+  };
+
+  const getOnlyDispatched = () => {
+    console.log("in disp");
+
     console.log({ audit });
     const dispatched = audit.filter((one) => {
       return one.type == "dispatched";
@@ -77,6 +84,8 @@ export default function Statistic() {
   useEffect(() => {
     getAuditData();
   }, []);
+
+  useEffect(() => {}, [audit]);
 
   useEffect(() => {
     if (audit.length) {
@@ -96,11 +105,11 @@ export default function Statistic() {
             <button onClick={showAll}>Show All</button>
             <button onClick={sortByDate}>Sort by date</button>
             <button onClick={getOnlyDelivered}>Only delivered</button>
-            <button onClick={getOnlyDispatched}>Only dispatched</button>
+            <button onClick={handelClick}>Only dispatched</button>
             <div>
               <Paginator
                 totalRecords={audit.length}
-                pageLimit={10}
+                pageLimit={12}
                 pageNeighbours={1}
                 setOffset={setOffset}
                 currentPage={currentPage}

@@ -1,5 +1,18 @@
 .warehouse-container {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr;
-  grid-gap: 10px;
+}
+
+.superWrapper {
+  display: grid;
+  /* grid-gap: 2em; */
+}
+
+.title1 {
+  margin-left: 17em;
+}
+
+.site-wrapper,
+.site-wrapper2 {
+  margin: 2em;
 }

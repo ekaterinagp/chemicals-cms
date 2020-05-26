@@ -84,6 +84,15 @@
   margin-top: -3px;
 }
 
+option {
+  border-radius: 0.5em;
+}
+
+select.arrows:focus {
+  border-color: blue;
+  outline: 0;
+}
+
 @-webkit-keyframes pulse {
   0% {
     box-shadow: 0 0 0 0.2em #c20a0a;

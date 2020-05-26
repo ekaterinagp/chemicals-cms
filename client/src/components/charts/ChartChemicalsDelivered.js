@@ -31,14 +31,14 @@ const ChartChemicalsDelivered = (props) => {
           label: `Total`,
           data: values,
           backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(324, 162, 235, 0.2)",
+            "rgba(249, 248, 113, 0.4)",
+            "rgba(87, 120, 114, 0.4)",
+            "rgba(181, 221, 123, 0.4)",
           ],
           borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(324, 162, 235, 1)",
+            "rgba(249, 248, 113, 1)",
+            "rgba(87, 120, 114, 1)",
+            "rgba(181, 221, 123, 1)",
           ],
         },
       ],
@@ -48,16 +48,17 @@ const ChartChemicalsDelivered = (props) => {
         display: true,
         position: "left",
         labels: {
-          fontColor: "rgb(255, 99, 132)",
+          fontColor: "rgb(85, 84, 84)",
         },
       },
       title: {
         display: true,
+        position: "bottom",
         text: `Total ${total} ku`,
       },
       layout: {
         padding: {
-          left: 50,
+          left: 0,
           right: 0,
           top: 0,
           bottom: 0,

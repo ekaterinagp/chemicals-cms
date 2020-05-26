@@ -1,4 +1,27 @@
 .chemicals-container {
   display: grid;
   grid-template-columns: 2fr 2fr;
+  padding: 2em;
+  grid-gap: 2em;
+}
+
+.chemicals-container h2 {
+  text-align: center;
+}
+
+.divSelect {
+  display: grid;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.box {
+  padding: 20px;
+  font-size: 150%;
+  border: 1px groove #629c81;
+  box-shadow: 0 0 0 1px green, 0 0 0 1px orange;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 0;
 }

@@ -8,13 +8,21 @@
   font-family: "Roboto", sans-serif;
 }
 
+.App {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
 .active {
   color: rgb(160, 52, 52);
   text-decoration: underline;
 }
 
 .title {
-  margin-left: 47rem;
+  margin-left: 35rem;
 }
 
 select {
@@ -43,6 +51,13 @@ select {
   background-size: 0.65em auto, 100%;
 }
 
+select.arrows {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA3klEQVRIS+3VMU9CMRTF8d8zBL+aizoQFhx0kUk33RzdYMNFXUFnYeGrYYyaJiUxJHDLSxodbNKpfeffc9/pbaPyaCrr+3OA++z4rtT5Pg5GuMnCY9yWQEoBE1xhlUUP8YDrCBIB0vojLvGO0yz4hm4JJAKcYYoPHGOZAUdYoIMBXrc5iQAHeMlzviFygj7O8dkWEJU4XI8chALRhn9AVKHf70VRTHu4wFfbmKZLNKt50dLBnna0imcMd/2I0phWa3Y/D1e1Xa9BCZJG0VuQNpaWKMx72xS1Fl5/WN3BN+AgJhnZQlq4AAAAAElFTkSuQmCC");
+  background-position: calc(100% - 0.5rem), 100% 0;
+  background-size: 1em 1em;
+  background-repeat: no-repeat;
+}
+
 select::-ms-expand {
   display: none;
 }
@@ -58,4 +73,15 @@ select:focus {
 }
 select option {
   font-weight: normal;
+}
+
+.box {
+  padding: 20px;
+  font-size: 150%;
+  border: 1px groove #629c81;
+  box-shadow: 0 0 0 1px green, 0 0 0 1px orange;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 0;
 }
