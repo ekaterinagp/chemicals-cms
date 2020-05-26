@@ -1,0 +1,14 @@
+.main-header {
+  background-color: rgb(85, 84, 84);
+  color: white;
+  text-align: center;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 10vh;
+}
+
+.hello {
+  text-align: start;
+  padding-left: 3em;
+}

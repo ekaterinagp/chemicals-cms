@@ -5,8 +5,8 @@ import axios from "axios";
 
 export default function StartPage() {
   const [selectLabels, setselectLabels] = useState([
-    { label: "last week", value: "week" },
-    { label: "last month", value: "month" },
+    { label: "Last week", value: "week" },
+    { label: "Last month", value: "month" },
   ]);
 
   const [result, setResult] = useState([]);
@@ -118,32 +118,42 @@ export default function StartPage() {
 
   return (
     <>
-      <h1> This is start page</h1>
+      <h1 className="title"> Welcome to Toxic Chemical Dashboard</h1>
       <div className="container-start-page">
         <div className="alerts box">
-          <h3> active alerts </h3>
+          <h3 className="alerts"> Current active alerts </h3>
           {console.log(alerts)}
           {alerts ? (
-            <div className="notification">
-              <p className="notify"> </p>
-              There are more than 15 A at site #{alerts.site}
-            </div>
+            <>
+              <div className="notification">
+                <p className="notify"> </p>
+                More than 15 A at site #{alerts.site}
+              </div>
+              <div className="fire">
+                <h3>Send notification to fire brigade</h3>
+                <button className="notificationBtn">Send notification</button>
+              </div>
+            </>
           ) : (
             <div>There are no active alerts</div>
           )}
         </div>
         <div className="jobs box">
-          <select
-            value={selectLabels.value}
-            onChange={(e) => getValue(e.currentTarget.value)}
-          >
-            {selectLabels.map(({ label, value }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-
+          <div className="jobs-select">
+            <p className="job-text">Jobs completed by</p>
+            <div>
+              <select
+                value={selectLabels.value}
+                onChange={(e) => getValue(e.currentTarget.value)}
+              >
+                {selectLabels.map(({ label, value }) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
           <ChartJobs {...jobsDone} />
         </div>
       </div>
