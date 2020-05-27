@@ -10,8 +10,8 @@ const Accordion = ({ title, children }) => {
       >
         {title}
       </div>
-      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
-        <div className="accordion-content">{children}</div>
+      <div className={`accordion-item  ${!isOpen ? "collapsed" : ""}`}>
+        <div className="accordion-content box">{children}</div>
       </div>
     </div>
   );

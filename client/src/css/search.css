@@ -26,15 +26,23 @@ th {
   transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
 }
 .accordion-title {
-  font-weight: 600;
-  cursor: pointer;
-  color: #666;
-  padding: 0.5em 1.5em;
-  border: solid 1px #ccc;
-  border-radius: 1.5em;
+  font-size: 15px;
+  padding: 0.5em 1em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 1em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #e2e2e2;
+  color: #436d59;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+  width: 50%;
 }
 .accordion-title::after {
   content: "";
@@ -55,6 +63,11 @@ th {
 }
 .accordion-content {
   padding: 1em 1.5em;
+  width: 45%;
+}
+
+.accordio-content button {
+  background-color: red;
 }
 
 .tabel-header {
@@ -69,5 +82,81 @@ th {
 }
 
 .table-rows {
-  border: 1px solid black;
+  border: 1px solid #629c81;
+  display: grid;
+  text-align: center;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+}
+
+.total-desc {
+  padding-left: 270px;
+}
+
+.total-desc1 {
+  padding-left: 65%;
+}
+
+.button-container button {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0.5em 1em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 1em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  background-color: #e2e2e2;
+  color: #436d59;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.button-container button:hover {
+  background-color: #629c81;
+  color: white;
+}
+
+.button-container .clearFilters {
+  color: red;
+}
+
+.button-container .clearFilters:hover {
+  background-color: red;
+  color: white;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+}
+
+.div-accordion {
+  display: grid;
+  padding-top: 20px;
+
+  justify-self: stretch;
+}
+
+/* .accordion-wrapper {
+  height: 400px;
+} */
+
+.tabelHeader {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+
+  background-color: #629c81;
+  color: white;
+}
+.grid-list {
+  padding-top: 2em;
+  display: grid;
+  grid-auto-rows: 4em;
+  width: 60%;
+  margin: 0 20em 0 20em;
 }

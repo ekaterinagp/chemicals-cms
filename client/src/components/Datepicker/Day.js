@@ -66,15 +66,15 @@ function Day({ dayLabel, date }) {
         color: getColorFn({
           selectedFirstOrLastColor: "#FFFFFF",
           normalColor: "#001217",
-          selectedColor: "#FFFFFF",
+          selectedColor: "#629c81",
           rangeHoverColor: "#FFFFFF",
           disabledColor: "#808285",
         }),
         background: getColorFn({
-          selectedFirstOrLastColor: "#00aeef",
+          selectedFirstOrLastColor: "#629c81",
           normalColor: "#FFFFFF",
-          selectedColor: "#71c9ed",
-          rangeHoverColor: "#71c9ed",
+          selectedColor: "#beead5",
+          rangeHoverColor: "#629c81",
           disabledColor: "#FFFFFF",
         }),
       }}

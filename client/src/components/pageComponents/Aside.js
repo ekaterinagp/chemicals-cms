@@ -35,12 +35,12 @@ export default function Aside() {
             </li>
             <li>
               <NavLink to="/search" activeClassName="active">
-                Search
+                Sites
               </NavLink>
             </li>
             <li>
               <NavLink to="/statistics" activeClassName="active">
-                Statistics
+                Audit tables
               </NavLink>
             </li>
           </ul>

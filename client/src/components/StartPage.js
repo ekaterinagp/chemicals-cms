@@ -128,7 +128,10 @@ export default function StartPage() {
             <>
               <div className="notification">
                 <p className="notify"> </p>
-                More than 15 A at site #{alerts.site}
+                <p className="alert-text">
+                  {" "}
+                  More than 15 A at site #{alerts.site}
+                </p>
               </div>
               <div className="fire">
                 <h3>Send notification to fire brigade</h3>

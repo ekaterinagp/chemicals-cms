@@ -27,10 +27,10 @@ export default function Search() {
     const siteData = await axios.get(`http://localhost/sites`);
     console.log(siteData.data);
     const site1 = {
-      A: siteData.data.site1A,
-      B: siteData.data.site1B,
-      C: siteData.data.site1C,
-      alert: siteData.data.site1alert,
+      A: siteData.data.site1A !== null ? siteData.data.site1A : "0",
+      B: siteData.data.site1B !== null ? siteData.data.site1B : "0",
+      C: siteData.data.site1C !== null ? siteData.data.site1C : "0",
+      alert: siteData.data.site1alert !== null ? siteData.data.site1alert : "0",
     };
 
     setSite1DataTotal(site1);
@@ -201,35 +201,38 @@ export default function Search() {
 
   return (
     <div>
-      <h1>This is search page </h1>
+      <h1 className="title">Sites overview</h1>
 
       <Tabs>
         <Tab onClick={handleClick} active={active === 0} id={0}>
-          Site 1
+          <h3 className="site-name">Site 1</h3>
         </Tab>
 
         <Tab onClick={handleClick} active={active === 1} id={1}>
-          Site 2
+          <h3 className="site-name">Site 2</h3>
         </Tab>
       </Tabs>
       <>
         <Content active={active === 0}>
-          <h1>Site 1</h1>
+          {/* <h1>Site 1</h1> */}
           {loading ? (
             <p>Loading...</p>
           ) : (
             <div className="total-container">
-              <h2> Total</h2>
-              <button onClick={clearFilters}>Clear all filters</button>
-              <p>
-                A: {site1DataTotal.A} B: {site1DataTotal.B} C:{" "}
-                {site1DataTotal.C} Alert: {site1DataTotal.alert}{" "}
+              <p className="total-desc1">
+                <strong>In total:</strong> <strong>A:</strong>{" "}
+                {site1DataTotal.A} <strong>B:</strong> {site1DataTotal.B}{" "}
+                <strong>C:</strong> {site1DataTotal.C} <strong>Alert:</strong>
+                {site1DataTotal.alert}{" "}
               </p>
-
-              <button onClick={sortByWarehouse1}>Sort by warehouse</button>
-              <button onClick={sortByDate1}>Sort by date</button>
-
-              <div>
+              <div className="button-container">
+                <button onClick={sortByWarehouse1}>Sort by warehouse</button>
+                <button onClick={sortByDate1}>Sort by date</button>
+                <button className="clearFilters" onClick={clearFilters}>
+                  Clear all filters
+                </button>
+              </div>
+              <div className="div-accordion">
                 <Accordion title="Search by date">
                   <Datepicker
                     value={searchDates}
@@ -241,9 +244,11 @@ export default function Search() {
 
               {site1DetailedData && site1DetailedData.length ? (
                 <div>
-                  <div>
+                  <div className="grid-list">
                     {" "}
-                    {renderTableHeader(site1DetailedData)}
+                    <div className="tabelHeader">
+                      {renderTableHeader(site1DetailedData)}
+                    </div>
                     {site1DetailedData.map((data, i) => (
                       <div className="table-rows" key={i}>
                         <p className="tabel-item"> {data.chemical}</p>
@@ -262,22 +267,26 @@ export default function Search() {
           )}
         </Content>
         <Content active={active === 1}>
-          <h1>Content 2</h1>
+          {/* <h1>Content 2</h1> */}
           {loading ? (
             <p>Loading...</p>
           ) : (
             <div className="total-container">
-              <h2> Total</h2>
-              <button onClick={clearFilters}>Clear all filters</button>
-              <p>
-                A: {site2DataTotal.A} B: {site2DataTotal.B} C:{" "}
-                {site2DataTotal.C} Alert: {site2DataTotal.alert}{" "}
+              <p className="total-desc">
+                <strong>In total:</strong> <strong>A:</strong>
+                {site2DataTotal.A}
+                <strong> B: </strong> {site2DataTotal.B} <strong> C: </strong>{" "}
+                {site2DataTotal.C} <strong>Alert: </strong>{" "}
+                {site2DataTotal.alert}{" "}
               </p>
-
-              <button onClick={sortByWarehouse2}>Sort by warehouse</button>
-              <button onClick={sortByDate2}>Sort by date</button>
-
-              <div>
+              <div className="button-container">
+                <button onClick={sortByWarehouse2}>Sort by warehouse</button>
+                <button onClick={sortByDate2}>Sort by date</button>
+                <button className="clearFilters" onClick={clearFilters}>
+                  Clear all filters
+                </button>
+              </div>
+              <div className="div-accordion">
                 <Accordion title="Search by date">
                   <Datepicker
                     value={searchDates}
@@ -289,9 +298,11 @@ export default function Search() {
 
               {site2DetailedData && site2DetailedData.length ? (
                 <div>
-                  <div>
+                  <div className="grid-list">
                     {" "}
-                    {renderTableHeader(site2DetailedData)}
+                    <div className="tabelHeader">
+                      {renderTableHeader(site2DetailedData)}
+                    </div>
                     {site2DetailedData.map((data, i) => (
                       <div className="table-rows" key={i}>
                         <p className="tabel-item"> {data.chemical}</p>

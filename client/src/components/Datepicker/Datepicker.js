@@ -85,9 +85,10 @@ const Datepicker = forwardRef((props, ref) => {
         <strong>End date: </strong>
         {state.endDate && state.endDate.toLocaleString()}
       </div> */}
-
-      <NavButton onClick={goToPreviousMonths}>Previous</NavButton>
-      <NavButton onClick={goToNextMonths}>Next</NavButton>
+      <div className="navDiv">
+        <NavButton onClick={goToPreviousMonths}>Previous</NavButton>
+        <NavButton onClick={goToNextMonths}>Next</NavButton>
+      </div>
       <div
         css={{
           display: "grid",

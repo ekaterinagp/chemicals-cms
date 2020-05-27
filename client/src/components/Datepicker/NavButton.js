@@ -10,10 +10,19 @@ export default function NavButton({ children, onClick }) {
       type="button"
       onClick={onClick}
       css={{
-        border: "1px solid #929598",
-        background: "transparent",
-        padding: "8px",
-        fontSize: "12px",
+        display: "inline-block",
+        cursor: "pointer",
+        padding: "0.5em 1em",
+        margin: "0 0.1em 0.1em 0",
+        border: "0.16em solid rgba(255, 255, 255, 0)",
+        borderRadius: "1em",
+        boxSizing: "border-box",
+        textDecoration: "none",
+        backgroundColor: "#e2e2e2",
+        color: "#436d59",
+        textShadow: "0 0.04em 0.04em rgba(0, 0, 0, 0.35)",
+        textAlign: "center",
+        transition: "all 0.2s",
       }}
     >
       {children}
