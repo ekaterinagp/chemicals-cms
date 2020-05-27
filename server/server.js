@@ -10,12 +10,11 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use(express.static("public");
+app.use(express.static("public"));
 
-app.get("/", (req,res)=>{
-return res.send(__dirname +"/public/static/index.html")
-})
-
+app.get("/", (req, res) => {
+  return res.send(__dirname + "/public/static/index.html");
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
