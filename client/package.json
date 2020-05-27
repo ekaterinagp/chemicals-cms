@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "moment": "^2.25.3",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",

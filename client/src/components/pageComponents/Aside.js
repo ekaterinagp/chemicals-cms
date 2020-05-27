@@ -14,7 +14,7 @@ import Search from "../Search";
 
 export default function Aside() {
   return (
-    <Router>
+    <Router basename={"/"}>
       <div className="container">
         <nav className="aside">
           <ul>

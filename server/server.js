@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
-
+// let allowedOrigins = ["http://localhost:3000", "http://ekaterinagp.dk"];
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,9 +20,6 @@ const knexFile = require("./knexfile.js");
 const knex = Knex(knexFile.development);
 
 Model.knex(knex);
-
-// const Warehouse = require("./models/Warehouse");
-// const WarehouseItem = require("./models/WarehouseItem");
 
 const warehouseRoute = require("./routes/warehouses");
 const processJobRoute = require("./routes/processJob");
