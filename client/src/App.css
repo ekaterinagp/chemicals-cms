@@ -90,3 +90,10 @@ select option {
   display: grid;
   grid-template-columns: 2fr 2fr;
 }
+
+.loading {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  color: #629c81;
+}

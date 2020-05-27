@@ -97,7 +97,7 @@ export default function Warehouses() {
         <div className="site-wrapper box">
           <h2 className="title1">Site 1</h2>
           {isLoading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <div className="warehouse-container">
               <div className="canvas-container">
@@ -121,7 +121,7 @@ export default function Warehouses() {
         <div className="site-wrapper2 box">
           <h2 className="title1">Site 2</h2>
           {isLoading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <div className="warehouse-container">
               <div className="canvas-container">

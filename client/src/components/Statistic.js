@@ -95,17 +95,19 @@ export default function Statistic() {
 
   return (
     <>
-      <div>
-        <h1> This is statistics page</h1>
+      <div className="audit-container">
+        <h1 className="title3">Audit tables</h1>
 
         {loading ? (
-          <p>Loading...</p>
+          <p className="loading">Loading...</p>
         ) : (
           <div className="div-stat">
-            <button onClick={showAll}>Show All</button>
-            <button onClick={sortByDate}>Sort by date</button>
-            <button onClick={getOnlyDelivered}>Only delivered</button>
-            <button onClick={handelClick}>Only dispatched</button>
+            <div className="button-container1">
+              <button onClick={showAll}>Show All</button>
+              <button onClick={sortByDate}>Sort by date</button>
+              <button onClick={getOnlyDelivered}>Only delivered</button>
+              <button onClick={handelClick}>Only dispatched</button>
+            </div>
             <div>
               <Paginator
                 totalRecords={audit.length}
@@ -114,21 +116,27 @@ export default function Statistic() {
                 setOffset={setOffset}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                // className={"paginationItemStyle"}
+                pageItemClass={"paginationItemStyle"}
+                // pageLinkClass={"pageLink"}
+                // pageActiveClass={"activePage"}
               />
             </div>
-            {renderTableHeader(audit)}
+            <div className="grid-list">
+              <div className="tabelHeader2">{renderTableHeader(audit)}</div>
 
-            <div className="stat">
-              {currentData.map((data, i) => (
-                <div className="table-rows" key={i}>
-                  <p className="tabel-item"> {data.type}</p>
-                  <p className="tabel-item"> {data.chemical}</p>
-                  <p className="tabel-item"> {data.amount}</p>
-                  <p className="tabel-item"> {data.warehouse}</p>
-                  <p className="tabel-item"> {data.site}</p>
-                  <p className="tabel-item"> {data.date}</p>
-                </div>
-              ))}
+              <div className="stat">
+                {currentData.map((data, i) => (
+                  <div className="table-rows1" key={i}>
+                    <p className="tabel-item"> {data.type}</p>
+                    <p className="tabel-item"> {data.chemical}</p>
+                    <p className="tabel-item"> {data.amount}</p>
+                    <p className="tabel-item"> {data.warehouse}</p>
+                    <p className="tabel-item"> {data.site}</p>
+                    <p className="tabel-item"> {data.date}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

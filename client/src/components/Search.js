@@ -216,7 +216,7 @@ export default function Search() {
         <Content active={active === 0}>
           {/* <h1>Site 1</h1> */}
           {loading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <div className="total-container">
               <p className="total-desc1">
@@ -261,7 +261,7 @@ export default function Search() {
                   </div>
                 </div>
               ) : (
-                <p>Loading...</p>
+                <p className="loading">Loading...</p>
               )}
             </div>
           )}
@@ -269,7 +269,7 @@ export default function Search() {
         <Content active={active === 1}>
           {/* <h1>Content 2</h1> */}
           {loading ? (
-            <p>Loading...</p>
+            <p className="loading">Loading...</p>
           ) : (
             <div className="total-container">
               <p className="total-desc">
@@ -315,7 +315,7 @@ export default function Search() {
                   </div>
                 </div>
               ) : (
-                <p>Loading...</p>
+                <p className="loading">Loading...</p>
               )}
             </div>
           )}

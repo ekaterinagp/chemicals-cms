@@ -115,7 +115,7 @@ export default function Chemicals() {
         {" "}
         <h1 className="title"> Chemicals overview</h1>
         {loading || deliveryForChart == null ? (
-          <p>Loading...</p>
+          <p className="loading">Loading...</p>
         ) : (
           <div className="chemicals-container">
             <div className="deliver-container box">
@@ -139,12 +139,12 @@ export default function Chemicals() {
                   </div>
                 </>
               ) : (
-                <p>Loading</p>
+                <p className="loading">Loading</p>
               )}
 
               {Object.keys(deliveryForChart).length === 0 &&
               deliveryForChart.constructor === Object ? (
-                <p>Loading</p>
+                <p className="loading">Loading</p>
               ) : (
                 <ChartChemicalsDelivered {...deliveryForChart} />
               )}
@@ -174,7 +174,7 @@ export default function Chemicals() {
                 </select>
               </div>
               {loading ? (
-                <p>Loading</p>
+                <p className="loading">Loading</p>
               ) : (
                 <ChartChemicalsDispatched {...dispatchForChart} />
               )}

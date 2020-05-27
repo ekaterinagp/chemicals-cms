@@ -1,3 +1,81 @@
 .stat {
   display: grid;
 }
+
+.button-container1 {
+  display: grid;
+  grid-template-columns: 3fr 3fr 3fr 3fr;
+  grid-gap: 1em;
+}
+
+.button-container1 button {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0.5em 1em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255, 255, 255, 0);
+  border-radius: 1em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  background-color: #e2e2e2;
+  color: #436d59;
+  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.button-container1 button:hover {
+  background-color: #629c81;
+  color: white;
+}
+
+.pageClass.activePage {
+  background-color: rgb(21, 255, 0);
+}
+
+/* .paginationItemStyle {
+  margin-left: 5px;
+  .page-link {
+      color: #fff
+  } */
+.paginationItemStyle.active button {
+  background-color: #629c81;
+  border-color: #629c81;
+  color: white;
+}
+
+/* .pageLink {
+  background-color: rgb(21, 255, 0);
+} */
+
+/* .react-hooks-paginator .page-item:hover .page-link,
+.react-hooks-paginator .page-item.active .page-link {
+  background-color: green;
+} */
+
+.title3 {
+  margin-left: 45%;
+}
+
+.tabelHeader2 {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
+
+  background-color: #629c81;
+  color: white;
+}
+
+.table-rows1 {
+  border: 1px solid #629c81;
+  display: grid;
+  text-align: center;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
+}
+
+.audit-container {
+  height: 100vh;
+}
