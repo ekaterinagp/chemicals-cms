@@ -1,4 +1,4 @@
-const credentials = require("./config/dbcredentials");
+// const credentials = require("./config/dbcredentials");
 const knexSnakeCaseMapper = require("objection").knexSnakeCaseMappers;
 
 // module.exports = {
