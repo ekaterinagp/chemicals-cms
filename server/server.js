@@ -38,7 +38,7 @@ app.use(processJobRoute);
 app.use(jobsRoute);
 app.use(chemicalsRoute);
 
-const server = app.listen(3000, (error) => {
+const server = app.listen(80, (error) => {
   if (error) {
     console.log("Error running express", error);
   }
